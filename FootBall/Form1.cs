@@ -49,7 +49,7 @@ namespace FootBall
             //docData.LoadHtml(doc.DocumentNode.SelectSingleNode(@"//*[@id='main']").InnerHtml);
             //*[@id="rcnt"]
 
-            for(int beginYear=2019; beginYear< beginYear+3;beginYear++ )
+            for(int beginYear=2019; beginYear< beginYear+2;beginYear++ )
             LoadYearsUrl(beginYear);
         }
         private void LoadYearsUrl(int year)
@@ -71,25 +71,31 @@ namespace FootBall
             GetGameData(doc, year);
         }
 
-        //取2021年資料錯誤
+        
         private void GetGameData(HtmlAgilityPack.HtmlDocument doc,int year)
         {
 
             int Years, Level, TotalGames, WinGames, LoseGames, TieGames, WinBall, LoseBall;
             string TeamName;
-            Decimal SubtractBall;
+            Decimal SubtractBall;           
+            int getXpathIndex2021 =0;
+            //取2021位置不同
+            if (year==2021)
+                getXpathIndex2021 = 2;
             for (int i = 2; i < LevelCount + 2; i++)
             {
                 Years = year;
-                Level = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[5]/tbody/tr[{i}]/td")[0].InnerHtml);
-                TeamName = doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[5]/tbody/tr[{i}]/th")[0].InnerText;
-                TotalGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[5]/tbody/tr[{i}]/td")[1].InnerHtml);
-                WinGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[5]/tbody/tr[{i}]/td")[2].InnerHtml);
-                TieGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[5]/tbody/tr[{i}]/td")[3].InnerHtml);
-                LoseGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[5]/tbody/tr[{i}]/td")[4].InnerHtml);
-                WinBall = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[5]/tbody/tr[{i}]/td")[5].InnerHtml);
-                LoseBall = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[5]/tbody/tr[{i}]/td")[6].InnerHtml);
-                SubtractBall = Convert.ToDecimal(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[5]/tbody/tr[{i}]/td")[7].InnerHtml);
+                                                                       //2021//*[@id="mw-content-text"]/div[1]/table[7]/tbody/tr[2]
+                Level = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5+ getXpathIndex2021}]/tbody/tr[{i}]/td")[0].InnerHtml);
+                                                          //2021//*[@id="mw-content-text"]/div[1]/table[7]/tbody/tr[2]/th
+                TeamName = doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/th")[0].InnerText;
+                TotalGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[1].InnerHtml);
+                WinGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[2].InnerHtml);
+                TieGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[3].InnerHtml);
+                LoseGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[4].InnerHtml);
+                WinBall = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[5].InnerHtml);
+                LoseBall = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[6].InnerHtml);
+                SubtractBall = Convert.ToDecimal(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[7].InnerHtml);
                 ListFootBallTeams.Add(new FootBallTeams { Years=Years, Level = Level, TeamName = TeamName, TotalGames = TotalGames, WinGames = WinGames, TieGames = TieGames, LoseGames = LoseGames, WinBall = WinBall, LoseBall = LoseBall, SubtractBall = SubtractBall });
             }
         }
