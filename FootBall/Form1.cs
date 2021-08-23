@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Windows.Forms;
 using System.Configuration;
+using System.Linq;
 
 namespace FootBall
 {
@@ -15,6 +16,7 @@ namespace FootBall
         List<FootBallTeams> ListFootBallTeams = new List<FootBallTeams>();
         FootBallTeams footBallTeams2019 = new FootBallTeams();
         HtmlWeb webClient = new HtmlWeb();
+        int endYear = 2022;
         public Form1()
         {
             InitializeComponent();
@@ -22,7 +24,16 @@ namespace FootBall
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            
+            var query = (from lfb in ListFootBallTeams
+                        orderby lfb.TeamName,lfb.Years 
+                        select lfb.Years.ToString().PadRight(10, ' ')+lfb.Level.ToString().PadRight(10, ' ') + lfb.TeamName.PadRight(20, ' ')+lfb.TotalGames.ToString().PadRight(10, ' ') + lfb.WinGames.ToString().PadRight(10, ' ') + lfb.LoseGames.ToString().PadRight(10, ' ') + lfb.TieGames.ToString().PadRight(10, ' ') + lfb.WinBall.ToString().PadRight(10, ' ') + lfb.LoseBall.ToString().PadRight(10, ' ') + lfb.SubtractBall+"      ");
+            tbShowGames.Text += "年分  排名  隊名                  總場  贏局  輸局  和局  贏球  輸球  球差" + Environment.NewLine;
+            foreach (var q in query)
+            {
+                tbShowGames.Text += q+ Environment.NewLine;
+            }
+            string a = "";
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -49,7 +60,7 @@ namespace FootBall
             //docData.LoadHtml(doc.DocumentNode.SelectSingleNode(@"//*[@id='main']").InnerHtml);
             //*[@id="rcnt"]
 
-            for(int beginYear=2019; beginYear< beginYear+2;beginYear++ )
+            for(int beginYear=2019; beginYear< endYear; beginYear++ )
             LoadYearsUrl(beginYear);
         }
         private void LoadYearsUrl(int year)
@@ -89,6 +100,7 @@ namespace FootBall
                 Level = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5+ getXpathIndex2021}]/tbody/tr[{i}]/td")[0].InnerHtml);
                                                           //2021//*[@id="mw-content-text"]/div[1]/table[7]/tbody/tr[2]/th
                 TeamName = doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/th")[0].InnerText;
+                TeamName = TeamName.Replace("(C)", "").Replace("\n","");
                 TotalGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[1].InnerHtml);
                 WinGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[2].InnerHtml);
                 TieGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[3].InnerHtml);
