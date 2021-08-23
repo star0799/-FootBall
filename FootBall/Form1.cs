@@ -90,7 +90,7 @@ namespace FootBall
                 WinBall = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[5]/tbody/tr[{i}]/td")[5].InnerHtml);
                 LoseBall = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[5]/tbody/tr[{i}]/td")[6].InnerHtml);
                 SubtractBall = Convert.ToDecimal(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[5]/tbody/tr[{i}]/td")[7].InnerHtml);
-                ListFootBallTeams.Add(new FootBallTeams { Level = Level, TeamName = TeamName, TotalGames = TotalGames, WinGames = WinGames, TieGames = TieGames, LoseGames = LoseGames, WinBall = WinBall, LoseBall = LoseBall, SubtractBall = SubtractBall });
+                ListFootBallTeams.Add(new FootBallTeams { Years=Years, Level = Level, TeamName = TeamName, TotalGames = TotalGames, WinGames = WinGames, TieGames = TieGames, LoseGames = LoseGames, WinBall = WinBall, LoseBall = LoseBall, SubtractBall = SubtractBall });
             }
         }
 
