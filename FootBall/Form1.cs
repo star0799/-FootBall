@@ -21,19 +21,38 @@ namespace FootBall
         {
             InitializeComponent();
         }
+      
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+
+
+            //var query = (from lfb in ListFootBallTeams
+            //             orderby lfb.TeamName, lfb.Years
+            //             select lfb.Years.ToString().PadRight(10, ' ') + lfb.Level.ToString().PadRight(10, ' ') + lfb.TeamName + string.Empty.PadRight(12 - Encoding.Default.GetByteCount(lfb.TeamName)) + lfb.TotalGames.ToString().PadRight(10, ' ') + lfb.WinGames.ToString().PadRight(10, ' ') + lfb.LoseGames.ToString().PadRight(10, ' ') + lfb.TieGames.ToString().PadRight(10, ' ') + lfb.WinBall.ToString().PadRight(10, ' ') + lfb.LoseBall.ToString().PadRight(10, ' ') + lfb.SubtractBall + "      ");
             var query = (from lfb in ListFootBallTeams
-                        orderby lfb.TeamName,lfb.Years 
-                        select lfb.Years.ToString().PadRight(10, ' ')+lfb.Level.ToString().PadRight(10, ' ') + lfb.TeamName.PadRight(20, ' ')+lfb.TotalGames.ToString().PadRight(10, ' ') + lfb.WinGames.ToString().PadRight(10, ' ') + lfb.LoseGames.ToString().PadRight(10, ' ') + lfb.TieGames.ToString().PadRight(10, ' ') + lfb.WinBall.ToString().PadRight(10, ' ') + lfb.LoseBall.ToString().PadRight(10, ' ') + lfb.SubtractBall+"      ");
-            tbShowGames.Text += "年分  排名  隊名                  總場  贏局  輸局  和局  贏球  輸球  球差" + Environment.NewLine;
+                         orderby lfb.TeamName, lfb.Years
+                         select lfb).ToList();
+           
+
             foreach (var q in query)
             {
-                tbShowGames.Text += q+ Environment.NewLine;
+                lvShow.Items.Add(new ListViewItem(new string[] { q.Years.ToString(), q.Level.ToString(), q.TeamName,q.TotalGames.ToString(),q.WinGames.ToString(),q.LoseGames.ToString(),q.TieGames.ToString(),q.WinBall.ToString(),q.LoseBall.ToString(),q.SubtractBall.ToString() }));
             }
-            string a = "";
+
+            var DistinctTeams = (from m in ListFootBallTeams
+                                 select new
+                                   {
+                                      m.TeamName                                      
+                                   }
+               ).Distinct().ToList();
+            
+            foreach (var d in DistinctTeams)
+            {
+                var TeamCalculate = ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y=>y.WinBall);
+
+            }
+            var a = "";
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -60,8 +79,34 @@ namespace FootBall
             //docData.LoadHtml(doc.DocumentNode.SelectSingleNode(@"//*[@id='main']").InnerHtml);
             //*[@id="rcnt"]
 
-            for(int beginYear=2019; beginYear< endYear; beginYear++ )
-            LoadYearsUrl(beginYear);
+            //年分 排名       隊名 總場  贏局 輸局  和局 贏球  輸球 球差
+
+            lvShow.View = View.Details;
+            lvShow.GridLines = true;
+            //lvShow.LabelEdit = false;
+            lvShow.FullRowSelect = true;
+            lvShow.Columns.Add("年份", 100);
+            lvShow.Columns.Add("排名", 100);
+            lvShow.Columns.Add("隊名", 100);
+            lvShow.Columns.Add("總場", 100);
+            lvShow.Columns.Add("贏局", 100);
+            lvShow.Columns.Add("輸局", 100);
+            lvShow.Columns.Add("和局", 100);
+            lvShow.Columns.Add("贏球", 100);
+            lvShow.Columns.Add("輸球", 100);
+            lvShow.Columns.Add("球差", 100);
+            lvShow.Columns.Add("平均每場得分", 100);
+            lvShow.Columns.Add("平均每場失分", 100);
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    var item = new ListViewItem($"No.{i}");
+            //    item.SubItems.Add($"文字{i}");
+            //    lvShow.Items.Add(item);
+            //}
+
+
+            for (int beginYear = 2019; beginYear < endYear; beginYear++)
+                LoadYearsUrl(beginYear);
         }
         private void LoadYearsUrl(int year)
         {
@@ -100,7 +145,7 @@ namespace FootBall
                 Level = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5+ getXpathIndex2021}]/tbody/tr[{i}]/td")[0].InnerHtml);
                                                           //2021//*[@id="mw-content-text"]/div[1]/table[7]/tbody/tr[2]/th
                 TeamName = doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/th")[0].InnerText;
-                TeamName = TeamName.Replace("(C)", "").Replace("\n","");
+                TeamName = TeamName.Replace("(C)", "").Replace("\n","").Trim();
                 TotalGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[1].InnerHtml);
                 WinGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[2].InnerHtml);
                 TieGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[3].InnerHtml);

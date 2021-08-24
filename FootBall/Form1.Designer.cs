@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
-            this.tbShowGames = new System.Windows.Forms.TextBox();
+            this.lvShow = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(654, 74);
+            this.button1.Location = new System.Drawing.Point(842, 47);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -42,33 +42,34 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // tbShowGames
+            // lvShow
             // 
-            this.tbShowGames.Location = new System.Drawing.Point(62, 74);
-            this.tbShowGames.Multiline = true;
-            this.tbShowGames.Name = "tbShowGames";
-            this.tbShowGames.Size = new System.Drawing.Size(586, 345);
-            this.tbShowGames.TabIndex = 1;
+            this.lvShow.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lvShow.HideSelection = false;
+            this.lvShow.Location = new System.Drawing.Point(12, 47);
+            this.lvShow.Name = "lvShow";
+            this.lvShow.Size = new System.Drawing.Size(811, 423);
+            this.lvShow.TabIndex = 1;
+            this.lvShow.UseCompatibleStateImageBehavior = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.tbShowGames);
+            this.ClientSize = new System.Drawing.Size(929, 506);
+            this.Controls.Add(this.lvShow);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox tbShowGames;
+        private System.Windows.Forms.ListView lvShow;
     }
 }
 
