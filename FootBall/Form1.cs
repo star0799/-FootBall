@@ -25,7 +25,9 @@ namespace FootBall
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            double AvgWinBall = default;
+            double AvgLoseBall = default;
+            int RealWinGameCount = default;
 
             //var query = (from lfb in ListFootBallTeams
             //             orderby lfb.TeamName, lfb.Years
@@ -37,22 +39,51 @@ namespace FootBall
 
             foreach (var q in query)
             {
-                lvShow.Items.Add(new ListViewItem(new string[] { q.Years.ToString(), q.Level.ToString(), q.TeamName,q.TotalGames.ToString(),q.WinGames.ToString(),q.LoseGames.ToString(),q.TieGames.ToString(),q.WinBall.ToString(),q.LoseBall.ToString(),q.SubtractBall.ToString() }));
+                AvgWinBall = Math.Round(Convert.ToDouble(q.WinBall) /Convert.ToDouble(q.TotalGames),2);
+                AvgLoseBall = Math.Round(Convert.ToDouble(q.LoseBall) / Convert.ToDouble(q.TotalGames), 2);
+                RealWinGameCount = q.WinGames - (q.TieGames + q.LoseGames);
+                lvShow.Items.Add(new ListViewItem(new string[] { q.Years.ToString(), q.Level.ToString(), q.TeamName,q.TotalGames.ToString(),q.WinGames.ToString(),q.LoseGames.ToString(),q.TieGames.ToString(),q.WinBall.ToString(),q.LoseBall.ToString(),q.SubtractBall.ToString(),AvgWinBall.ToString(),AvgLoseBall.ToString(), RealWinGameCount.ToString() }));
             }
 
             var DistinctTeams = (from m in ListFootBallTeams
+                                 orderby m.TeamName, m.Years
                                  select new
-                                   {
-                                      m.TeamName                                      
-                                   }
+                                 {
+                                     m.TeamName
+                                 }
                ).Distinct().ToList();
+
+            string TeamName = default;
+            double AvgLv = default;
+            int TeamTotalGames = default;
             
+            int TeamWinGames = default;
+            int TeamTieGames = default;
+            int TeamLoseGames = default;
+            int TeamWinBall = default;
+            int TeamLoseBall = default;
+            double AvgTeamWinBall = default;
+            double AvgTeamLoseBall = default;
+            int RealTeamWinGameCount = default;
             foreach (var d in DistinctTeams)
             {
-                var TeamCalculate = ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y=>y.WinBall);
-
+                TeamName = d.TeamName;
+                AvgLv = ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Average(y => y.Level);
+                AvgLv = Math.Round(AvgLv,2);
+                TeamTotalGames= ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y => y.TotalGames);
+                TeamWinGames = ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y => y.WinGames);
+                TeamTieGames = ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y => y.TieGames);
+                TeamLoseGames = ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y => y.LoseGames);
+                TeamWinBall = ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y => y.WinBall);
+                TeamLoseBall = ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y => y.LoseBall);
+                AvgTeamWinBall = Math.Round(Convert.ToDouble(TeamWinBall) / Convert.ToDouble(TeamTotalGames), 2);
+                AvgTeamLoseBall = Math.Round(Convert.ToDouble(TeamLoseBall) / Convert.ToDouble(TeamTotalGames), 2);
+                RealTeamWinGameCount = TeamWinGames - (TeamTieGames+ TeamLoseGames);
+                lvStatistics.Items.Add(new ListViewItem(new string[] { TeamName, AvgLv.ToString()
+                    , TeamTotalGames.ToString(),TeamWinGames.ToString(),TeamLoseGames.ToString(),TeamTieGames.ToString(),
+                TeamWinBall.ToString(),TeamLoseBall.ToString(),AvgTeamWinBall.ToString(),AvgTeamLoseBall.ToString(),RealTeamWinGameCount.ToString()}));
             }
-            var a = "";
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -95,8 +126,24 @@ namespace FootBall
             lvShow.Columns.Add("贏球", 100);
             lvShow.Columns.Add("輸球", 100);
             lvShow.Columns.Add("球差", 100);
-            lvShow.Columns.Add("平均每場得分", 100);
-            lvShow.Columns.Add("平均每場失分", 100);
+            lvShow.Columns.Add("平均每場得分", 150);
+            lvShow.Columns.Add("平均每場失分", 150);
+            lvShow.Columns.Add("勝-(和+負)", 150);
+
+            lvStatistics.View= View.Details;
+            lvStatistics.GridLines = true;
+            lvStatistics.Columns.Add("隊名", 100);
+            lvStatistics.Columns.Add("平均名次", 100);
+            lvStatistics.Columns.Add("歷年總場", 100);
+            lvStatistics.Columns.Add("歷年贏局", 100);            
+            lvStatistics.Columns.Add("歷年輸局", 100);
+            lvStatistics.Columns.Add("歷年和局", 100);
+            lvStatistics.Columns.Add("歷年贏球", 100);
+            lvStatistics.Columns.Add("歷年輸球", 100);
+            lvStatistics.Columns.Add("歷年平均得分", 150);
+            lvStatistics.Columns.Add("歷年平均失分", 150);
+            lvStatistics.Columns.Add("歷年勝-(和+負)", 150);
+
             //for (int i = 0; i < 10; i++)
             //{
             //    var item = new ListViewItem($"No.{i}");

@@ -28,37 +28,54 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnTeamsData = new System.Windows.Forms.Button();
             this.lvShow = new System.Windows.Forms.ListView();
+            this.lvStatistics = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
-            // button1
+            // btnTeamsData
             // 
-            this.button1.Location = new System.Drawing.Point(842, 47);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnTeamsData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTeamsData.Font = new System.Drawing.Font("新細明體", 12F);
+            this.btnTeamsData.Location = new System.Drawing.Point(1348, 444);
+            this.btnTeamsData.Name = "btnTeamsData";
+            this.btnTeamsData.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
+            this.btnTeamsData.Size = new System.Drawing.Size(92, 32);
+            this.btnTeamsData.TabIndex = 0;
+            this.btnTeamsData.Text = "球隊資訊";
+            this.btnTeamsData.UseVisualStyleBackColor = true;
+            this.btnTeamsData.Click += new System.EventHandler(this.button1_Click);
             // 
             // lvShow
             // 
+            this.lvShow.Dock = System.Windows.Forms.DockStyle.Top;
             this.lvShow.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lvShow.HideSelection = false;
-            this.lvShow.Location = new System.Drawing.Point(12, 47);
+            this.lvShow.Location = new System.Drawing.Point(0, 0);
             this.lvShow.Name = "lvShow";
-            this.lvShow.Size = new System.Drawing.Size(811, 423);
+            this.lvShow.Size = new System.Drawing.Size(1440, 438);
             this.lvShow.TabIndex = 1;
             this.lvShow.UseCompatibleStateImageBehavior = false;
+            // 
+            // lvStatistics
+            // 
+            this.lvStatistics.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lvStatistics.Font = new System.Drawing.Font("新細明體", 12F);
+            this.lvStatistics.HideSelection = false;
+            this.lvStatistics.Location = new System.Drawing.Point(0, 438);
+            this.lvStatistics.Name = "lvStatistics";
+            this.lvStatistics.Size = new System.Drawing.Size(1223, 236);
+            this.lvStatistics.TabIndex = 2;
+            this.lvStatistics.UseCompatibleStateImageBehavior = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(929, 506);
+            this.ClientSize = new System.Drawing.Size(1440, 674);
+            this.Controls.Add(this.lvStatistics);
             this.Controls.Add(this.lvShow);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnTeamsData);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -68,8 +85,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnTeamsData;
         private System.Windows.Forms.ListView lvShow;
+        private System.Windows.Forms.ListView lvStatistics;
     }
 }
 
