@@ -17,6 +17,6 @@ namespace FootBall
         public int TieGames { get; set; }
         public int WinBall { get; set; }
         public int LoseBall { get; set; }      
-        public decimal SubtractBall { get; set; }
+        public string SubtractBall { get; set; }
     }
 }

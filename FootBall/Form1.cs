@@ -12,7 +12,7 @@ namespace FootBall
 {
     public partial class Form1 : Form
     {
-        public const int LevelCount= 4;
+        public const int LevelCount= 20;
         List<FootBallTeams> ListFootBallTeams = new List<FootBallTeams>();
         FootBallTeams footBallTeams2019 = new FootBallTeams();
         HtmlWeb webClient = new HtmlWeb();
@@ -28,7 +28,9 @@ namespace FootBall
             double AvgWinBall = default;
             double AvgLoseBall = default;
             int RealWinGameCount = default;
-
+            double ClearAvg = default;
+            double WinRate = default;
+            double ClearRate = default;
             //var query = (from lfb in ListFootBallTeams
             //             orderby lfb.TeamName, lfb.Years
             //             select lfb.Years.ToString().PadRight(10, ' ') + lfb.Level.ToString().PadRight(10, ' ') + lfb.TeamName + string.Empty.PadRight(12 - Encoding.Default.GetByteCount(lfb.TeamName)) + lfb.TotalGames.ToString().PadRight(10, ' ') + lfb.WinGames.ToString().PadRight(10, ' ') + lfb.LoseGames.ToString().PadRight(10, ' ') + lfb.TieGames.ToString().PadRight(10, ' ') + lfb.WinBall.ToString().PadRight(10, ' ') + lfb.LoseBall.ToString().PadRight(10, ' ') + lfb.SubtractBall + "      ");
@@ -42,7 +44,12 @@ namespace FootBall
                 AvgWinBall = Math.Round(Convert.ToDouble(q.WinBall) /Convert.ToDouble(q.TotalGames),2);
                 AvgLoseBall = Math.Round(Convert.ToDouble(q.LoseBall) / Convert.ToDouble(q.TotalGames), 2);
                 RealWinGameCount = q.WinGames - (q.TieGames + q.LoseGames);
-                lvShow.Items.Add(new ListViewItem(new string[] { q.Years.ToString(), q.Level.ToString(), q.TeamName,q.TotalGames.ToString(),q.WinGames.ToString(),q.LoseGames.ToString(),q.TieGames.ToString(),q.WinBall.ToString(),q.LoseBall.ToString(),q.SubtractBall.ToString(),AvgWinBall.ToString(),AvgLoseBall.ToString(), RealWinGameCount.ToString() }));
+                ClearAvg = Math.Round(Convert.ToDouble(q.SubtractBall) / Convert.ToDouble(q.TotalGames),2);
+                WinRate = Math.Round(Convert.ToDouble(q.WinGames) /Convert.ToDouble(q.TotalGames),2)*100;
+                //ClearRate = Math.Round(Convert.ToDouble(RealWinGameCount)/Convert.ToDouble(q.TotalGames),2)*100;
+                lvShow.Items.Add(new ListViewItem(new string[] { q.Years.ToString(), q.Level.ToString(), q.TeamName,q.TotalGames.ToString(),q.WinGames.ToString(),q.LoseGames.ToString(),q.TieGames.ToString(), RealWinGameCount.ToString(), q.WinBall.ToString(),q.LoseBall.ToString(),q.SubtractBall.ToString(),AvgWinBall.ToString(),AvgLoseBall.ToString(), ClearAvg.ToString(), WinRate.ToString()+"%"
+                    , q.Years.ToString() }));
+                //, ClearRate.ToString()+"%"
             }
 
             var DistinctTeams = (from m in ListFootBallTeams
@@ -65,6 +72,9 @@ namespace FootBall
             double AvgTeamWinBall = default;
             double AvgTeamLoseBall = default;
             int RealTeamWinGameCount = default;
+            double TeamClearAvg = default;
+            double TeamWinRate = default;
+            //double TeamClearRate = default;
             foreach (var d in DistinctTeams)
             {
                 TeamName = d.TeamName;
@@ -79,9 +89,12 @@ namespace FootBall
                 AvgTeamWinBall = Math.Round(Convert.ToDouble(TeamWinBall) / Convert.ToDouble(TeamTotalGames), 2);
                 AvgTeamLoseBall = Math.Round(Convert.ToDouble(TeamLoseBall) / Convert.ToDouble(TeamTotalGames), 2);
                 RealTeamWinGameCount = TeamWinGames - (TeamTieGames+ TeamLoseGames);
+                TeamClearAvg =Math.Round(Convert.ToDouble(RealTeamWinGameCount) / Convert.ToDouble(TeamTotalGames),2);
+                TeamWinRate= Math.Round(Convert.ToDouble(TeamWinGames) / Convert.ToDouble(TeamTotalGames), 2)*100;
+                //TeamClearRate=Math.Round(Convert.ToDouble(RealTeamWinGameCount) / Convert.ToDouble(TeamTotalGames), 2)*100;
                 lvStatistics.Items.Add(new ListViewItem(new string[] { TeamName, AvgLv.ToString()
-                    , TeamTotalGames.ToString(),TeamWinGames.ToString(),TeamLoseGames.ToString(),TeamTieGames.ToString(),
-                TeamWinBall.ToString(),TeamLoseBall.ToString(),AvgTeamWinBall.ToString(),AvgTeamLoseBall.ToString(),RealTeamWinGameCount.ToString()}));
+                    , TeamTotalGames.ToString(),TeamWinGames.ToString(),TeamLoseGames.ToString(),TeamTieGames.ToString(),RealTeamWinGameCount.ToString(),
+                TeamWinBall.ToString(),TeamLoseBall.ToString(),AvgTeamWinBall.ToString(),AvgTeamLoseBall.ToString(),TeamClearAvg.ToString(),TeamWinRate.ToString()+"%"}));
             }
 
         }
@@ -123,12 +136,16 @@ namespace FootBall
             lvShow.Columns.Add("贏局", 100);
             lvShow.Columns.Add("輸局", 100);
             lvShow.Columns.Add("和局", 100);
+            lvShow.Columns.Add("勝-(和+負)", 150);
             lvShow.Columns.Add("贏球", 100);
             lvShow.Columns.Add("輸球", 100);
-            lvShow.Columns.Add("球差", 100);
+            lvShow.Columns.Add("淨勝", 100);
             lvShow.Columns.Add("平均每場得分", 150);
             lvShow.Columns.Add("平均每場失分", 150);
-            lvShow.Columns.Add("勝-(和+負)", 150);
+            lvShow.Columns.Add("平均淨球", 150);
+            lvShow.Columns.Add("勝率", 100);
+            //lvShow.Columns.Add("淨勝率", 100);
+            lvShow.Columns.Add("年份", 100);
 
             lvStatistics.View= View.Details;
             lvStatistics.GridLines = true;
@@ -138,11 +155,14 @@ namespace FootBall
             lvStatistics.Columns.Add("歷年贏局", 100);            
             lvStatistics.Columns.Add("歷年輸局", 100);
             lvStatistics.Columns.Add("歷年和局", 100);
+            lvStatistics.Columns.Add("歷年勝-(和+負)", 150);
             lvStatistics.Columns.Add("歷年贏球", 100);
             lvStatistics.Columns.Add("歷年輸球", 100);
             lvStatistics.Columns.Add("歷年平均得分", 150);
             lvStatistics.Columns.Add("歷年平均失分", 150);
-            lvStatistics.Columns.Add("歷年勝-(和+負)", 150);
+            lvStatistics.Columns.Add("歷年平均淨球", 150);
+            lvStatistics.Columns.Add("歷年勝率", 100);
+            //lvStatistics.Columns.Add("歷年淨勝率", 100);
 
             //for (int i = 0; i < 10; i++)
             //{
@@ -180,7 +200,7 @@ namespace FootBall
 
             int Years, Level, TotalGames, WinGames, LoseGames, TieGames, WinBall, LoseBall;
             string TeamName;
-            Decimal SubtractBall;           
+            string SubtractBall;           
             int getXpathIndex2021 =0;
             //取2021位置不同
             if (year==2021)
@@ -192,14 +212,14 @@ namespace FootBall
                 Level = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5+ getXpathIndex2021}]/tbody/tr[{i}]/td")[0].InnerHtml);
                                                           //2021//*[@id="mw-content-text"]/div[1]/table[7]/tbody/tr[2]/th
                 TeamName = doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/th")[0].InnerText;
-                TeamName = TeamName.Replace("(C)", "").Replace("\n","").Trim();
+                TeamName = TeamName.Replace("(C)", "").Replace("(R)", "").Replace("\n","").Trim();
                 TotalGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[1].InnerHtml);
                 WinGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[2].InnerHtml);
                 TieGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[3].InnerHtml);
                 LoseGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[4].InnerHtml);
                 WinBall = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[5].InnerHtml);
                 LoseBall = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[6].InnerHtml);
-                SubtractBall = Convert.ToDecimal(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[7].InnerHtml);
+                SubtractBall = (doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[7].InnerHtml).Replace("&#8722;","-").Trim();
                 ListFootBallTeams.Add(new FootBallTeams { Years=Years, Level = Level, TeamName = TeamName, TotalGames = TotalGames, WinGames = WinGames, TieGames = TieGames, LoseGames = LoseGames, WinBall = WinBall, LoseBall = LoseBall, SubtractBall = SubtractBall });
             }
         }
