@@ -31,6 +31,8 @@
             this.btnTeamsData = new System.Windows.Forms.Button();
             this.lvShow = new System.Windows.Forms.ListView();
             this.lvStatistics = new System.Windows.Forms.ListView();
+            this.cbYears = new System.Windows.Forms.ComboBox();
+            this.cbTeam = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // btnTeamsData
@@ -68,11 +70,29 @@
             this.lvStatistics.TabIndex = 2;
             this.lvStatistics.UseCompatibleStateImageBehavior = false;
             // 
+            // cbYears
+            // 
+            this.cbYears.FormattingEnabled = true;
+            this.cbYears.Location = new System.Drawing.Point(1245, 524);
+            this.cbYears.Name = "cbYears";
+            this.cbYears.Size = new System.Drawing.Size(121, 20);
+            this.cbYears.TabIndex = 3;
+            // 
+            // cbTeam
+            // 
+            this.cbTeam.FormattingEnabled = true;
+            this.cbTeam.Location = new System.Drawing.Point(1245, 577);
+            this.cbTeam.Name = "cbTeam";
+            this.cbTeam.Size = new System.Drawing.Size(121, 20);
+            this.cbTeam.TabIndex = 4;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1440, 674);
+            this.Controls.Add(this.cbTeam);
+            this.Controls.Add(this.cbYears);
             this.Controls.Add(this.lvStatistics);
             this.Controls.Add(this.lvShow);
             this.Controls.Add(this.btnTeamsData);
@@ -88,6 +108,8 @@
         private System.Windows.Forms.Button btnTeamsData;
         private System.Windows.Forms.ListView lvShow;
         private System.Windows.Forms.ListView lvStatistics;
+        private System.Windows.Forms.ComboBox cbYears;
+        private System.Windows.Forms.ComboBox cbTeam;
     }
 }
 

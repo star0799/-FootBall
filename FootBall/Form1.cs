@@ -30,7 +30,7 @@ namespace FootBall
             int RealWinGameCount = default;
             double ClearAvg = default;
             double WinRate = default;
-            double ClearRate = default;
+            //double ClearRate = default;
             //var query = (from lfb in ListFootBallTeams
             //             orderby lfb.TeamName, lfb.Years
             //             select lfb.Years.ToString().PadRight(10, ' ') + lfb.Level.ToString().PadRight(10, ' ') + lfb.TeamName + string.Empty.PadRight(12 - Encoding.Default.GetByteCount(lfb.TeamName)) + lfb.TotalGames.ToString().PadRight(10, ' ') + lfb.WinGames.ToString().PadRight(10, ' ') + lfb.LoseGames.ToString().PadRight(10, ' ') + lfb.TieGames.ToString().PadRight(10, ' ') + lfb.WinBall.ToString().PadRight(10, ' ') + lfb.LoseBall.ToString().PadRight(10, ' ') + lfb.SubtractBall + "      ");
@@ -69,11 +69,13 @@ namespace FootBall
             int TeamLoseGames = default;
             int TeamWinBall = default;
             int TeamLoseBall = default;
+            int TeamClerWin = default;
             double AvgTeamWinBall = default;
             double AvgTeamLoseBall = default;
             int RealTeamWinGameCount = default;
             double TeamClearAvg = default;
             double TeamWinRate = default;
+            
             //double TeamClearRate = default;
             foreach (var d in DistinctTeams)
             {
@@ -86,15 +88,16 @@ namespace FootBall
                 TeamLoseGames = ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y => y.LoseGames);
                 TeamWinBall = ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y => y.WinBall);
                 TeamLoseBall = ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y => y.LoseBall);
+                TeamClerWin= ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y =>Convert.ToInt32(y.SubtractBall));
                 AvgTeamWinBall = Math.Round(Convert.ToDouble(TeamWinBall) / Convert.ToDouble(TeamTotalGames), 2);
                 AvgTeamLoseBall = Math.Round(Convert.ToDouble(TeamLoseBall) / Convert.ToDouble(TeamTotalGames), 2);
                 RealTeamWinGameCount = TeamWinGames - (TeamTieGames+ TeamLoseGames);
-                TeamClearAvg =Math.Round(Convert.ToDouble(RealTeamWinGameCount) / Convert.ToDouble(TeamTotalGames),2);
+                TeamClearAvg =Math.Round(Convert.ToDouble(TeamClerWin) / Convert.ToDouble(TeamTotalGames),2);
                 TeamWinRate= Math.Round(Convert.ToDouble(TeamWinGames) / Convert.ToDouble(TeamTotalGames), 2)*100;
                 //TeamClearRate=Math.Round(Convert.ToDouble(RealTeamWinGameCount) / Convert.ToDouble(TeamTotalGames), 2)*100;
                 lvStatistics.Items.Add(new ListViewItem(new string[] { TeamName, AvgLv.ToString()
                     , TeamTotalGames.ToString(),TeamWinGames.ToString(),TeamLoseGames.ToString(),TeamTieGames.ToString(),RealTeamWinGameCount.ToString(),
-                TeamWinBall.ToString(),TeamLoseBall.ToString(),AvgTeamWinBall.ToString(),AvgTeamLoseBall.ToString(),TeamClearAvg.ToString(),TeamWinRate.ToString()+"%"}));
+                TeamWinBall.ToString(),TeamLoseBall.ToString(),TeamClerWin.ToString(),AvgTeamWinBall.ToString(),AvgTeamLoseBall.ToString(),TeamClearAvg.ToString(),TeamWinRate.ToString()+"%"}));
             }
 
         }
@@ -137,12 +140,12 @@ namespace FootBall
             lvShow.Columns.Add("輸局", 100);
             lvShow.Columns.Add("和局", 100);
             lvShow.Columns.Add("勝-(和+負)", 150);
-            lvShow.Columns.Add("贏球", 100);
-            lvShow.Columns.Add("輸球", 100);
+            lvShow.Columns.Add("進球", 100);
+            lvShow.Columns.Add("失球", 100);
             lvShow.Columns.Add("淨勝", 100);
             lvShow.Columns.Add("平均每場得分", 150);
             lvShow.Columns.Add("平均每場失分", 150);
-            lvShow.Columns.Add("平均淨球", 150);
+            lvShow.Columns.Add("平均淨勝", 150);
             lvShow.Columns.Add("勝率", 100);
             //lvShow.Columns.Add("淨勝率", 100);
             lvShow.Columns.Add("年份", 100);
@@ -156,11 +159,12 @@ namespace FootBall
             lvStatistics.Columns.Add("歷年輸局", 100);
             lvStatistics.Columns.Add("歷年和局", 100);
             lvStatistics.Columns.Add("歷年勝-(和+負)", 150);
-            lvStatistics.Columns.Add("歷年贏球", 100);
-            lvStatistics.Columns.Add("歷年輸球", 100);
+            lvStatistics.Columns.Add("歷年進球", 100);
+            lvStatistics.Columns.Add("歷年失球", 100);
+            lvStatistics.Columns.Add("歷年淨勝", 100);
             lvStatistics.Columns.Add("歷年平均得分", 150);
             lvStatistics.Columns.Add("歷年平均失分", 150);
-            lvStatistics.Columns.Add("歷年平均淨球", 150);
+            lvStatistics.Columns.Add("歷年平均淨勝", 150);
             lvStatistics.Columns.Add("歷年勝率", 100);
             //lvStatistics.Columns.Add("歷年淨勝率", 100);
 
@@ -174,6 +178,28 @@ namespace FootBall
 
             for (int beginYear = 2019; beginYear < endYear; beginYear++)
                 LoadYearsUrl(beginYear);
+
+            var DistinctYears = (from m in ListFootBallTeams
+                                 orderby m.TeamName, m.Years
+                                 select new
+                                 {
+                                     m.Years
+                                 }
+           ).Distinct().ToList();
+
+            var DistinctTeams = (from m in ListFootBallTeams
+                                 orderby m.TeamName, m.Years
+                                 select new
+                                 {
+                                     m.TeamName
+                                 }
+              ).Distinct().ToList();
+            
+
+            foreach (var y in DistinctYears)
+                cbYears.Items.Add(y.Years);
+            foreach (var t in DistinctTeams)
+            cbTeam.Items.Add(t.TeamName);
         }
         private void LoadYearsUrl(int year)
         {
