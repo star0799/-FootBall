@@ -33,7 +33,8 @@ namespace FootBall
             //取得下拉選單值進行搜尋
             int? cbYearValue = null;
             string cbTeamValue = null;
-
+            //lvShow.Columns.Clear();
+            //lvStatistics.Columns.Clear();
             if (cbYears.SelectedIndex!=0)
                 cbYearValue =Convert.ToInt32(cbYears.SelectedItem);
             if (cbTeam.SelectedIndex != 0)
