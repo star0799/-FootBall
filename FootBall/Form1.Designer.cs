@@ -39,7 +39,7 @@
             // 
             this.btnTeamsData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTeamsData.Font = new System.Drawing.Font("新細明體", 12F);
-            this.btnTeamsData.Location = new System.Drawing.Point(1348, 630);
+            this.btnTeamsData.Location = new System.Drawing.Point(1465, 684);
             this.btnTeamsData.Name = "btnTeamsData";
             this.btnTeamsData.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.btnTeamsData.Size = new System.Drawing.Size(92, 32);
@@ -55,7 +55,7 @@
             this.lvShow.HideSelection = false;
             this.lvShow.Location = new System.Drawing.Point(0, 0);
             this.lvShow.Name = "lvShow";
-            this.lvShow.Size = new System.Drawing.Size(1440, 438);
+            this.lvShow.Size = new System.Drawing.Size(1557, 438);
             this.lvShow.TabIndex = 1;
             this.lvShow.UseCompatibleStateImageBehavior = false;
             // 
@@ -66,24 +66,29 @@
             this.lvStatistics.HideSelection = false;
             this.lvStatistics.Location = new System.Drawing.Point(0, 438);
             this.lvStatistics.Name = "lvStatistics";
-            this.lvStatistics.Size = new System.Drawing.Size(1223, 236);
+            this.lvStatistics.Size = new System.Drawing.Size(1289, 344);
             this.lvStatistics.TabIndex = 2;
             this.lvStatistics.UseCompatibleStateImageBehavior = false;
             // 
             // cbYears
             // 
+            this.cbYears.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbYears.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbYears.Font = new System.Drawing.Font("新細明體", 14F);
             this.cbYears.FormattingEnabled = true;
-            this.cbYears.Location = new System.Drawing.Point(1229, 444);
+            this.cbYears.Location = new System.Drawing.Point(1436, 444);
+            this.cbYears.Margin = new System.Windows.Forms.Padding(3, 3, 30, 30);
             this.cbYears.Name = "cbYears";
             this.cbYears.Size = new System.Drawing.Size(121, 27);
             this.cbYears.TabIndex = 3;
             // 
             // cbTeam
             // 
+            this.cbTeam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbTeam.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTeam.Font = new System.Drawing.Font("新細明體", 14F);
             this.cbTeam.FormattingEnabled = true;
-            this.cbTeam.Location = new System.Drawing.Point(1229, 494);
+            this.cbTeam.Location = new System.Drawing.Point(1436, 577);
             this.cbTeam.Name = "cbTeam";
             this.cbTeam.Size = new System.Drawing.Size(121, 27);
             this.cbTeam.TabIndex = 4;
@@ -92,7 +97,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1440, 674);
+            this.ClientSize = new System.Drawing.Size(1557, 782);
             this.Controls.Add(this.cbTeam);
             this.Controls.Add(this.cbYears);
             this.Controls.Add(this.lvStatistics);
