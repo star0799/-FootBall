@@ -30,11 +30,19 @@ namespace FootBall
             int RealWinGameCount = default;
             double ClearAvg = default;
             double WinRate = default;
-            //double ClearRate = default;
-            //var query = (from lfb in ListFootBallTeams
-            //             orderby lfb.TeamName, lfb.Years
-            //             select lfb.Years.ToString().PadRight(10, ' ') + lfb.Level.ToString().PadRight(10, ' ') + lfb.TeamName + string.Empty.PadRight(12 - Encoding.Default.GetByteCount(lfb.TeamName)) + lfb.TotalGames.ToString().PadRight(10, ' ') + lfb.WinGames.ToString().PadRight(10, ' ') + lfb.LoseGames.ToString().PadRight(10, ' ') + lfb.TieGames.ToString().PadRight(10, ' ') + lfb.WinBall.ToString().PadRight(10, ' ') + lfb.LoseBall.ToString().PadRight(10, ' ') + lfb.SubtractBall + "      ");
+            //取得下拉選單值進行搜尋
+            int? cbYearValue = null;
+            string cbTeamValue = null;
+
+            if (cbYears.SelectedIndex!=0)
+                cbYearValue =Convert.ToInt32(cbYears.SelectedItem);
+            if (cbTeam.SelectedIndex != 0)
+                cbTeamValue = cbTeam.SelectedItem.ToString();
+            
+
+
             var query = (from lfb in ListFootBallTeams
+                         where (cbYearValue==null || lfb.Years== cbYearValue) && (cbTeamValue == null || lfb.TeamName == cbTeamValue)
                          orderby lfb.TeamName, lfb.Years
                          select lfb).ToList();
            
@@ -46,13 +54,12 @@ namespace FootBall
                 RealWinGameCount = q.WinGames - (q.TieGames + q.LoseGames);
                 ClearAvg = Math.Round(Convert.ToDouble(q.SubtractBall) / Convert.ToDouble(q.TotalGames),2);
                 WinRate = Math.Round(Convert.ToDouble(q.WinGames) /Convert.ToDouble(q.TotalGames),2)*100;
-                //ClearRate = Math.Round(Convert.ToDouble(RealWinGameCount)/Convert.ToDouble(q.TotalGames),2)*100;
                 lvShow.Items.Add(new ListViewItem(new string[] { q.Years.ToString(), q.Level.ToString(), q.TeamName,q.TotalGames.ToString(),q.WinGames.ToString(),q.LoseGames.ToString(),q.TieGames.ToString(), RealWinGameCount.ToString(), q.WinBall.ToString(),q.LoseBall.ToString(),q.SubtractBall.ToString(),AvgWinBall.ToString(),AvgLoseBall.ToString(), ClearAvg.ToString(), WinRate.ToString()+"%"
                     , q.Years.ToString() }));
-                //, ClearRate.ToString()+"%"
             }
 
-            var DistinctTeams = (from m in ListFootBallTeams
+            //抓出所有不重複隊伍
+            var DistinctTeams = (from m in query
                                  orderby m.TeamName, m.Years
                                  select new
                                  {
@@ -75,8 +82,8 @@ namespace FootBall
             int RealTeamWinGameCount = default;
             double TeamClearAvg = default;
             double TeamWinRate = default;
-            
-            //double TeamClearRate = default;
+
+            //把不重複隊伍進行groupby計算
             foreach (var d in DistinctTeams)
             {
                 TeamName = d.TeamName;
@@ -105,32 +112,8 @@ namespace FootBall
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            //WebClient webClient = new WebClient();
-
-            //HtmlNodeCollection item = doc.DocumentNode.SelectNodes($"//*[@id='main']");
-
-
-            ///html/body/div[4]/div[2]/div[2]/div/div/div[1]/div[1]/table/tbody/tr[1]/td[3]/a[2]/span
-
-
-            //var memoryStream = new MemoryStream(webClient.DownloadData(@"https://www.google.com/search?q=%E8%8B%B1%E8%B6%85&rlz=1C1ASUM_enTW858TW858&oq=%E8%8B%B1%E8%B6%85&aqs=chrome..69i57.1348j0j7&sourceid=chrome&ie=UTF-8#sie=lg;/g/11p44qhs93;2;/m/02_tc;st;fp;1;;"));
-            //HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
-            //doc.Load(memoryStream, Encoding.UTF8);
-            //HtmlNodeCollection item = doc.DocumentNode.SelectNodes($"//*[@id='ow165']/div[1]/g-dropdown-button/div/g-dropdown-menu-button-caption/span");
-            //HtmlAgilityPack.HtmlDocument docData = new HtmlAgilityPack.HtmlDocument();
-            //docData.LoadHtml(doc.DocumentNode.SelectSingleNode(@"//div[@name='printhere']")
-            //                                 .InnerHtml);
-
-            //string tenp = item[0].InnerText;
-            // HtmlAgilityPack.HtmlDocument docData = new HtmlAgilityPack.HtmlDocument();
-            //docData.LoadHtml(doc.DocumentNode.SelectSingleNode(@"//*[@id='main']").InnerHtml);
-            //*[@id="rcnt"]
-
-            //年分 排名       隊名 總場  贏局 輸局  和局 贏球  輸球 球差
-
             lvShow.View = View.Details;
             lvShow.GridLines = true;
-            //lvShow.LabelEdit = false;
             lvShow.FullRowSelect = true;
             lvShow.Columns.Add("年份", 100);
             lvShow.Columns.Add("排名", 100);
@@ -147,7 +130,6 @@ namespace FootBall
             lvShow.Columns.Add("平均每場失分", 150);
             lvShow.Columns.Add("平均淨勝", 150);
             lvShow.Columns.Add("勝率", 100);
-            //lvShow.Columns.Add("淨勝率", 100);
             lvShow.Columns.Add("年份", 100);
 
             lvStatistics.View= View.Details;
@@ -166,14 +148,6 @@ namespace FootBall
             lvStatistics.Columns.Add("歷年平均失分", 150);
             lvStatistics.Columns.Add("歷年平均淨勝", 150);
             lvStatistics.Columns.Add("歷年勝率", 100);
-            //lvStatistics.Columns.Add("歷年淨勝率", 100);
-
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    var item = new ListViewItem($"No.{i}");
-            //    item.SubItems.Add($"文字{i}");
-            //    lvShow.Items.Add(item);
-            //}
 
 
             for (int beginYear = 2019; beginYear < endYear; beginYear++)
@@ -194,12 +168,15 @@ namespace FootBall
                                      m.TeamName
                                  }
               ).Distinct().ToList();
-            
 
+            cbYears.Items.Add("全部");
+            cbTeam.Items.Add("全部");
             foreach (var y in DistinctYears)
                 cbYears.Items.Add(y.Years);
             foreach (var t in DistinctTeams)
             cbTeam.Items.Add(t.TeamName);
+            cbYears.SelectedIndex = 0;
+            cbTeam.SelectedIndex = 0;
         }
         private void LoadYearsUrl(int year)
         {

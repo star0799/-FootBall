@@ -39,7 +39,7 @@
             // 
             this.btnTeamsData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTeamsData.Font = new System.Drawing.Font("新細明體", 12F);
-            this.btnTeamsData.Location = new System.Drawing.Point(1348, 444);
+            this.btnTeamsData.Location = new System.Drawing.Point(1348, 630);
             this.btnTeamsData.Name = "btnTeamsData";
             this.btnTeamsData.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.btnTeamsData.Size = new System.Drawing.Size(92, 32);
@@ -72,18 +72,20 @@
             // 
             // cbYears
             // 
+            this.cbYears.Font = new System.Drawing.Font("新細明體", 14F);
             this.cbYears.FormattingEnabled = true;
-            this.cbYears.Location = new System.Drawing.Point(1245, 524);
+            this.cbYears.Location = new System.Drawing.Point(1229, 444);
             this.cbYears.Name = "cbYears";
-            this.cbYears.Size = new System.Drawing.Size(121, 20);
+            this.cbYears.Size = new System.Drawing.Size(121, 27);
             this.cbYears.TabIndex = 3;
             // 
             // cbTeam
             // 
+            this.cbTeam.Font = new System.Drawing.Font("新細明體", 14F);
             this.cbTeam.FormattingEnabled = true;
-            this.cbTeam.Location = new System.Drawing.Point(1245, 577);
+            this.cbTeam.Location = new System.Drawing.Point(1229, 494);
             this.cbTeam.Name = "cbTeam";
-            this.cbTeam.Size = new System.Drawing.Size(121, 20);
+            this.cbTeam.Size = new System.Drawing.Size(121, 27);
             this.cbTeam.TabIndex = 4;
             // 
             // Form1
