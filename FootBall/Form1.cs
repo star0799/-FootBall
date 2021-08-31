@@ -149,16 +149,39 @@ namespace FootBall
             HtmlAgilityPack.HtmlDocument doc = default;
             if (year == 2019)
             {
-                 doc = webClient.Load(ConfigurationManager.AppSettings["PremierLeague2019"]);
-                
+                try
+                {
+                    doc = webClient.Load(ConfigurationManager.AppSettings["PremierLeague2019"]);
+                }
+                catch(Exception e)
+                {
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                    doc = webClient.Load(ConfigurationManager.AppSettings["PremierLeague2019"]);
+                }
             }
             else if(year == 2020)
             {
-                doc = webClient.Load(ConfigurationManager.AppSettings["PremierLeague2020"]);
+                try
+                {
+                    doc = webClient.Load(ConfigurationManager.AppSettings["PremierLeague2020"]);
+                }
+                catch (Exception e)
+                {
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                    doc = webClient.Load(ConfigurationManager.AppSettings["PremierLeague2020"]);
+                }
             }
             else if(year==2021)
             {
-                doc = webClient.Load(ConfigurationManager.AppSettings["PremierLeague2021"]);
+                try
+                {
+                    doc = webClient.Load(ConfigurationManager.AppSettings["PremierLeague2021"]);
+                }
+                catch (Exception e)
+                {
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                    doc = webClient.Load(ConfigurationManager.AppSettings["PremierLeague2021"]);
+                }
             }
             GetGameData(doc, year);
         }
