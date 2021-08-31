@@ -33,6 +33,7 @@ namespace FootBall
             //取得下拉選單值進行搜尋
             int? cbYearValue = null;
             string cbTeamValue = null;
+            ReloadListView();
             //lvShow.Columns.Clear();
             //lvStatistics.Columns.Clear();
             if (cbYears.SelectedIndex!=0)
@@ -113,42 +114,7 @@ namespace FootBall
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            lvShow.View = View.Details;
-            lvShow.GridLines = true;
-            lvShow.FullRowSelect = true;
-            lvShow.Columns.Add("年份", 100);
-            lvShow.Columns.Add("排名", 100);
-            lvShow.Columns.Add("隊名", 100);
-            lvShow.Columns.Add("總場", 100);
-            lvShow.Columns.Add("贏局", 100);
-            lvShow.Columns.Add("輸局", 100);
-            lvShow.Columns.Add("和局", 100);
-            lvShow.Columns.Add("勝-(和+負)", 150);
-            lvShow.Columns.Add("進球", 100);
-            lvShow.Columns.Add("失球", 100);
-            lvShow.Columns.Add("淨勝", 100);
-            lvShow.Columns.Add("平均每場得分", 150);
-            lvShow.Columns.Add("平均每場失分", 150);
-            lvShow.Columns.Add("平均淨勝", 150);
-            lvShow.Columns.Add("勝率", 100);
-            lvShow.Columns.Add("年份", 100);
-
-            lvStatistics.View= View.Details;
-            lvStatistics.GridLines = true;
-            lvStatistics.Columns.Add("隊名", 100);
-            lvStatistics.Columns.Add("平均名次", 100);
-            lvStatistics.Columns.Add("歷年總場", 100);
-            lvStatistics.Columns.Add("歷年贏局", 100);            
-            lvStatistics.Columns.Add("歷年輸局", 100);
-            lvStatistics.Columns.Add("歷年和局", 100);
-            lvStatistics.Columns.Add("歷年勝-(和+負)", 150);
-            lvStatistics.Columns.Add("歷年進球", 100);
-            lvStatistics.Columns.Add("歷年失球", 100);
-            lvStatistics.Columns.Add("歷年淨勝", 100);
-            lvStatistics.Columns.Add("歷年平均得分", 150);
-            lvStatistics.Columns.Add("歷年平均失分", 150);
-            lvStatistics.Columns.Add("歷年平均淨勝", 150);
-            lvStatistics.Columns.Add("歷年勝率", 100);
+            ReloadListView();
 
 
             for (int beginYear = 2019; beginYear < endYear; beginYear++)
@@ -226,6 +192,49 @@ namespace FootBall
                 SubtractBall = (doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{5 + getXpathIndex2021}]/tbody/tr[{i}]/td")[7].InnerHtml).Replace("&#8722;","-").Trim();
                 ListFootBallTeams.Add(new FootBallTeams { Years=Years, Level = Level, TeamName = TeamName, TotalGames = TotalGames, WinGames = WinGames, TieGames = TieGames, LoseGames = LoseGames, WinBall = WinBall, LoseBall = LoseBall, SubtractBall = SubtractBall });
             }
+        }
+        private void ReloadListView()
+        {
+
+            lvShow.Clear();
+            lvStatistics.Clear();
+            lvShow.View = View.Details;
+            lvShow.GridLines = true;
+            lvShow.FullRowSelect = true;
+            lvShow.Columns.Add("年份", 100);
+            lvShow.Columns.Add("排名", 100);
+            lvShow.Columns.Add("隊名", 100);
+            lvShow.Columns.Add("總場", 100);
+            lvShow.Columns.Add("贏局", 100);
+            lvShow.Columns.Add("輸局", 100);
+            lvShow.Columns.Add("和局", 100);
+            lvShow.Columns.Add("勝-(和+負)", 150);
+            lvShow.Columns.Add("進球", 100);
+            lvShow.Columns.Add("失球", 100);
+            lvShow.Columns.Add("淨勝", 100);
+            lvShow.Columns.Add("平均每場得分", 150);
+            lvShow.Columns.Add("平均每場失分", 150);
+            lvShow.Columns.Add("平均淨勝", 150);
+            lvShow.Columns.Add("勝率", 100);
+            lvShow.Columns.Add("年份", 100);
+
+            lvStatistics.View = View.Details;
+            lvStatistics.GridLines = true;
+            lvStatistics.FullRowSelect = true;
+            lvStatistics.Columns.Add("隊名", 100);
+            lvStatistics.Columns.Add("平均名次", 100);
+            lvStatistics.Columns.Add("歷年總場", 100);
+            lvStatistics.Columns.Add("歷年贏局", 100);
+            lvStatistics.Columns.Add("歷年輸局", 100);
+            lvStatistics.Columns.Add("歷年和局", 100);
+            lvStatistics.Columns.Add("歷年勝-(和+負)", 150);
+            lvStatistics.Columns.Add("歷年進球", 100);
+            lvStatistics.Columns.Add("歷年失球", 100);
+            lvStatistics.Columns.Add("歷年淨勝", 100);
+            lvStatistics.Columns.Add("歷年平均得分", 150);
+            lvStatistics.Columns.Add("歷年平均失分", 150);
+            lvStatistics.Columns.Add("歷年平均淨勝", 150);
+            lvStatistics.Columns.Add("歷年勝率", 100);
         }
 
     }
