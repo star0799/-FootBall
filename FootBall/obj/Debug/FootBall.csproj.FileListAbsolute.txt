@@ -1,0 +1,14 @@
+E:\VS\FootBall\FootBall\FootBall\bin\Debug\FootBall.exe.config
+E:\VS\FootBall\FootBall\FootBall\bin\Debug\FootBall.exe
+E:\VS\FootBall\FootBall\FootBall\bin\Debug\FootBall.pdb
+E:\VS\FootBall\FootBall\FootBall\obj\Debug\FootBall.csprojAssemblyReference.cache
+E:\VS\FootBall\FootBall\FootBall\obj\Debug\FootBall.Form1.resources
+E:\VS\FootBall\FootBall\FootBall\obj\Debug\FootBall.Properties.Resources.resources
+E:\VS\FootBall\FootBall\FootBall\obj\Debug\FootBall.csproj.GenerateResource.cache
+E:\VS\FootBall\FootBall\FootBall\obj\Debug\FootBall.csproj.CoreCompileInputs.cache
+E:\VS\FootBall\FootBall\FootBall\obj\Debug\FootBall.exe
+E:\VS\FootBall\FootBall\FootBall\obj\Debug\FootBall.pdb
+E:\VS\FootBall\FootBall\FootBall\bin\Debug\HtmlAgilityPack.dll
+E:\VS\FootBall\FootBall\FootBall\bin\Debug\HtmlAgilityPack.pdb
+E:\VS\FootBall\FootBall\FootBall\bin\Debug\HtmlAgilityPack.xml
+E:\VS\FootBall\FootBall\FootBall\obj\Debug\FootBall.csproj.CopyComplete
