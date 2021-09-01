@@ -34,8 +34,6 @@ namespace FootBall
             int? cbYearValue = null;
             string cbTeamValue = null;
             ReloadListView();
-            //lvShow.Columns.Clear();
-            //lvStatistics.Columns.Clear();
             if (cbYears.SelectedIndex!=0)
                 cbYearValue =Convert.ToInt32(cbYears.SelectedItem);
             if (cbTeam.SelectedIndex != 0)
@@ -48,7 +46,6 @@ namespace FootBall
                          orderby lfb.TeamName, lfb.Years
                          select lfb).ToList();
            
-
             foreach (var q in query)
             {
                 AvgWinBall = Math.Round(Convert.ToDouble(q.WinBall) /Convert.ToDouble(q.TotalGames),2);
@@ -149,16 +146,39 @@ namespace FootBall
             HtmlAgilityPack.HtmlDocument doc = default;
             if (year == 2019)
             {
-                 doc = webClient.Load(ConfigurationManager.AppSettings["PremierLeague2019"]);
-                
+                try
+                {
+                    doc = webClient.Load(ConfigurationManager.AppSettings["PremierLeague2019"]);
+                }
+                catch(Exception e)
+                {
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                    doc = webClient.Load(ConfigurationManager.AppSettings["PremierLeague2019"]);
+                }
             }
             else if(year == 2020)
             {
-                doc = webClient.Load(ConfigurationManager.AppSettings["PremierLeague2020"]);
+                try
+                {
+                    doc = webClient.Load(ConfigurationManager.AppSettings["PremierLeague2020"]);
+                }
+                catch (Exception e)
+                {
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                    doc = webClient.Load(ConfigurationManager.AppSettings["PremierLeague2020"]);
+                }
             }
             else if(year==2021)
             {
-                doc = webClient.Load(ConfigurationManager.AppSettings["PremierLeague2021"]);
+                try
+                {
+                    doc = webClient.Load(ConfigurationManager.AppSettings["PremierLeague2021"]);
+                }
+                catch (Exception e)
+                {
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                    doc = webClient.Load(ConfigurationManager.AppSettings["PremierLeague2021"]);
+                }
             }
             GetGameData(doc, year);
         }
