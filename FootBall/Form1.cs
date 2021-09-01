@@ -34,8 +34,6 @@ namespace FootBall
             int? cbYearValue = null;
             string cbTeamValue = null;
             ReloadListView();
-            //lvShow.Columns.Clear();
-            //lvStatistics.Columns.Clear();
             if (cbYears.SelectedIndex!=0)
                 cbYearValue =Convert.ToInt32(cbYears.SelectedItem);
             if (cbTeam.SelectedIndex != 0)
@@ -48,7 +46,6 @@ namespace FootBall
                          orderby lfb.TeamName, lfb.Years
                          select lfb).ToList();
            
-
             foreach (var q in query)
             {
                 AvgWinBall = Math.Round(Convert.ToDouble(q.WinBall) /Convert.ToDouble(q.TotalGames),2);
