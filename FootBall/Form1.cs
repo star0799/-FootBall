@@ -100,7 +100,6 @@ namespace FootBall
                 RealTeamWinGameCount = TeamWinGames - (TeamTieGames+ TeamLoseGames);
                 TeamClearAvg =Math.Round(Convert.ToDouble(TeamClerWin) / Convert.ToDouble(TeamTotalGames),2);
                 TeamWinRate= Math.Round(Convert.ToDouble(TeamWinGames) / Convert.ToDouble(TeamTotalGames), 2)*100;
-                //TeamClearRate=Math.Round(Convert.ToDouble(RealTeamWinGameCount) / Convert.ToDouble(TeamTotalGames), 2)*100;
                 lvStatistics.Items.Add(new ListViewItem(new string[] { TeamName, AvgLv.ToString()
                     , TeamTotalGames.ToString(),TeamWinGames.ToString(),TeamLoseGames.ToString(),TeamTieGames.ToString(),RealTeamWinGameCount.ToString(),
                 TeamWinBall.ToString(),TeamLoseBall.ToString(),TeamClerWin.ToString(),AvgTeamWinBall.ToString(),AvgTeamLoseBall.ToString(),TeamClearAvg.ToString(),TeamWinRate.ToString()+"%"}));
