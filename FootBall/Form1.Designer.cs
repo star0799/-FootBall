@@ -33,13 +33,15 @@
             this.lvStatistics = new System.Windows.Forms.ListView();
             this.cbYears = new System.Windows.Forms.ComboBox();
             this.cbTeam = new System.Windows.Forms.ComboBox();
+            this.cbCountry = new System.Windows.Forms.ComboBox();
+            this.lbSelect = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnTeamsData
             // 
             this.btnTeamsData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTeamsData.Font = new System.Drawing.Font("新細明體", 12F);
-            this.btnTeamsData.Location = new System.Drawing.Point(1202, 502);
+            this.btnTeamsData.Location = new System.Drawing.Point(1202, 583);
             this.btnTeamsData.Name = "btnTeamsData";
             this.btnTeamsData.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.btnTeamsData.Size = new System.Drawing.Size(92, 32);
@@ -66,7 +68,7 @@
             this.lvStatistics.HideSelection = false;
             this.lvStatistics.Location = new System.Drawing.Point(0, 363);
             this.lvStatistics.Name = "lvStatistics";
-            this.lvStatistics.Size = new System.Drawing.Size(1102, 264);
+            this.lvStatistics.Size = new System.Drawing.Size(1082, 264);
             this.lvStatistics.TabIndex = 2;
             this.lvStatistics.UseCompatibleStateImageBehavior = false;
             // 
@@ -76,10 +78,10 @@
             this.cbYears.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbYears.Font = new System.Drawing.Font("新細明體", 14F);
             this.cbYears.FormattingEnabled = true;
-            this.cbYears.Location = new System.Drawing.Point(1202, 380);
+            this.cbYears.Location = new System.Drawing.Point(1173, 454);
             this.cbYears.Margin = new System.Windows.Forms.Padding(3, 3, 30, 30);
             this.cbYears.Name = "cbYears";
-            this.cbYears.Size = new System.Drawing.Size(121, 27);
+            this.cbYears.Size = new System.Drawing.Size(148, 27);
             this.cbYears.TabIndex = 3;
             // 
             // cbTeam
@@ -88,16 +90,42 @@
             this.cbTeam.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTeam.Font = new System.Drawing.Font("新細明體", 14F);
             this.cbTeam.FormattingEnabled = true;
-            this.cbTeam.Location = new System.Drawing.Point(1200, 440);
+            this.cbTeam.Location = new System.Drawing.Point(1173, 532);
             this.cbTeam.Name = "cbTeam";
-            this.cbTeam.Size = new System.Drawing.Size(121, 27);
+            this.cbTeam.Size = new System.Drawing.Size(148, 27);
             this.cbTeam.TabIndex = 4;
+            // 
+            // cbCountry
+            // 
+            this.cbCountry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCountry.Font = new System.Drawing.Font("新細明體", 14F);
+            this.cbCountry.FormattingEnabled = true;
+            this.cbCountry.Location = new System.Drawing.Point(1173, 369);
+            this.cbCountry.Margin = new System.Windows.Forms.Padding(3, 3, 30, 30);
+            this.cbCountry.Name = "cbCountry";
+            this.cbCountry.Size = new System.Drawing.Size(148, 27);
+            this.cbCountry.TabIndex = 5;
+            this.cbCountry.SelectedIndexChanged += new System.EventHandler(this.cbCountry_SelectedIndexChanged);
+            // 
+            // lbSelect
+            // 
+            this.lbSelect.AutoSize = true;
+            this.lbSelect.Font = new System.Drawing.Font("新細明體", 12F);
+            this.lbSelect.ForeColor = System.Drawing.Color.Red;
+            this.lbSelect.Location = new System.Drawing.Point(1186, 374);
+            this.lbSelect.Name = "lbSelect";
+            this.lbSelect.Size = new System.Drawing.Size(108, 16);
+            this.lbSelect.TabIndex = 6;
+            this.lbSelect.Text = "請先選擇國家:";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1333, 627);
+            this.Controls.Add(this.lbSelect);
+            this.Controls.Add(this.cbCountry);
             this.Controls.Add(this.cbTeam);
             this.Controls.Add(this.cbYears);
             this.Controls.Add(this.lvStatistics);
@@ -107,6 +135,7 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -117,6 +146,8 @@
         private System.Windows.Forms.ListView lvStatistics;
         private System.Windows.Forms.ComboBox cbYears;
         private System.Windows.Forms.ComboBox cbTeam;
+        private System.Windows.Forms.ComboBox cbCountry;
+        private System.Windows.Forms.Label lbSelect;
     }
 }
 
