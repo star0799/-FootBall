@@ -46,7 +46,7 @@
             // 
             this.btnTeamsData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTeamsData.Font = new System.Drawing.Font("新細明體", 12F);
-            this.btnTeamsData.Location = new System.Drawing.Point(1153, 603);
+            this.btnTeamsData.Location = new System.Drawing.Point(1186, 605);
             this.btnTeamsData.Name = "btnTeamsData";
             this.btnTeamsData.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.btnTeamsData.Size = new System.Drawing.Size(92, 32);
@@ -83,7 +83,7 @@
             this.cbYears.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbYears.Font = new System.Drawing.Font("新細明體", 14F);
             this.cbYears.FormattingEnabled = true;
-            this.cbYears.Location = new System.Drawing.Point(1132, 429);
+            this.cbYears.Location = new System.Drawing.Point(1186, 428);
             this.cbYears.Margin = new System.Windows.Forms.Padding(3, 3, 30, 30);
             this.cbYears.Name = "cbYears";
             this.cbYears.Size = new System.Drawing.Size(148, 27);
@@ -95,7 +95,7 @@
             this.cbTeam.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTeam.Font = new System.Drawing.Font("新細明體", 14F);
             this.cbTeam.FormattingEnabled = true;
-            this.cbTeam.Location = new System.Drawing.Point(1132, 489);
+            this.cbTeam.Location = new System.Drawing.Point(1186, 488);
             this.cbTeam.Name = "cbTeam";
             this.cbTeam.Size = new System.Drawing.Size(148, 27);
             this.cbTeam.TabIndex = 4;
@@ -106,7 +106,7 @@
             this.cbCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCountry.Font = new System.Drawing.Font("新細明體", 14F);
             this.cbCountry.FormattingEnabled = true;
-            this.cbCountry.Location = new System.Drawing.Point(1132, 369);
+            this.cbCountry.Location = new System.Drawing.Point(1186, 369);
             this.cbCountry.Margin = new System.Windows.Forms.Padding(3, 3, 30, 30);
             this.cbCountry.Name = "cbCountry";
             this.cbCountry.Size = new System.Drawing.Size(148, 27);
@@ -118,7 +118,7 @@
             this.lbSelect.AutoSize = true;
             this.lbSelect.Font = new System.Drawing.Font("新細明體", 12F);
             this.lbSelect.ForeColor = System.Drawing.Color.Red;
-            this.lbSelect.Location = new System.Drawing.Point(1150, 374);
+            this.lbSelect.Location = new System.Drawing.Point(1183, 374);
             this.lbSelect.Name = "lbSelect";
             this.lbSelect.Size = new System.Drawing.Size(108, 16);
             this.lbSelect.TabIndex = 6;
@@ -130,7 +130,7 @@
             this.cbTeam2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTeam2.Font = new System.Drawing.Font("新細明體", 14F);
             this.cbTeam2.FormattingEnabled = true;
-            this.cbTeam2.Location = new System.Drawing.Point(1132, 552);
+            this.cbTeam2.Location = new System.Drawing.Point(1186, 552);
             this.cbTeam2.Name = "cbTeam2";
             this.cbTeam2.Size = new System.Drawing.Size(148, 27);
             this.cbTeam2.TabIndex = 7;
@@ -138,7 +138,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1079, 377);
+            this.label1.Location = new System.Drawing.Point(1076, 378);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(32, 12);
             this.label1.TabIndex = 8;
@@ -147,7 +147,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(1079, 437);
+            this.label2.Location = new System.Drawing.Point(1076, 436);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 12);
             this.label2.TabIndex = 9;
@@ -156,7 +156,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1079, 497);
+            this.label3.Location = new System.Drawing.Point(1076, 496);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 12);
             this.label3.TabIndex = 10;
@@ -165,7 +165,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(1079, 560);
+            this.label4.Location = new System.Drawing.Point(1076, 560);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(38, 12);
             this.label4.TabIndex = 11;
