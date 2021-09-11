@@ -34,16 +34,18 @@ namespace FootBall
             //取得下拉選單值進行搜尋
             int? cbYearValue = null;
             string cbTeamValue = null;
+            string cbTeam2Value = null;
             ReloadListView();
             if (cbYears.SelectedIndex!=0)
                 cbYearValue =Convert.ToInt32(cbYears.SelectedItem);
             if (cbTeam.SelectedIndex != 0)
                 cbTeamValue = cbTeam.SelectedItem.ToString();
-            
+            if (cbTeam.SelectedIndex != 0)
+                cbTeam2Value = cbTeam2.SelectedItem.ToString();
 
 
             var query = (from lfb in ListFootBallTeams
-                         where (cbYearValue==null || lfb.Years== cbYearValue) && (cbTeamValue == null || lfb.TeamName == cbTeamValue)
+                         where (cbYearValue==null || lfb.Years== cbYearValue) && ((cbTeamValue == null || lfb.TeamName == cbTeamValue)||(cbTeam2Value == null || lfb.TeamName == cbTeam2Value))
                          orderby lfb.TeamName, lfb.Years
                          select lfb).ToList();
            
@@ -141,7 +143,7 @@ namespace FootBall
                     if (year == 2019)
                     tableIndex = 6;
                     else if (year == 2020)
-                        tableIndex = 7;
+                        tableIndex = 5;
                     doc = webClient.Load(ConfigurationManager.AppSettings["Italian" + year]);
                     break;
                 case 2:
@@ -246,6 +248,7 @@ namespace FootBall
         {
             cbYears.Items.Clear();
             cbTeam.Items.Clear();
+            cbTeam2.Items.Clear();
             ListFootBallTeams.Clear();
             ReloadListView();
            
@@ -276,13 +279,17 @@ namespace FootBall
 
             cbYears.Items.Add("全部");
             cbTeam.Items.Add("全部");
+            cbTeam2.Items.Add("無");
             foreach (var y in DistinctYears)
                 cbYears.Items.Add(y.Years);
             foreach (var t in DistinctTeams)
+            {
                 cbTeam.Items.Add(t.TeamName);
+                cbTeam2.Items.Add(t.TeamName);
+            }
             cbYears.SelectedIndex = 0;
             cbTeam.SelectedIndex = 0;
-
+            cbTeam2.SelectedIndex = 0;
             lbSelect.Text = "";
         }
     }
