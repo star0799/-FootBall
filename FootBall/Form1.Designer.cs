@@ -123,6 +123,7 @@
             this.lbSelect.Size = new System.Drawing.Size(108, 16);
             this.lbSelect.TabIndex = 6;
             this.lbSelect.Text = "請先選擇國家:";
+            this.lbSelect.Click += new System.EventHandler(this.lbSelect_Click);
             // 
             // cbTeam2
             // 

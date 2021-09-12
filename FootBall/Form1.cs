@@ -113,16 +113,12 @@ namespace FootBall
         private void Form1_Load(object sender, EventArgs e)
         {
             ReloadListView();
-            foreach (var item in Enum.GetValues(typeof(CountryEnum)))
-            {
-                cbCountry.Items.Add(item);
-            }
-
-
-
-
-
-
+            SeleniumChrome seleniumChrome = new SeleniumChrome();
+            seleniumChrome.LoadData(2019, CountryEnum.西甲);
+            //foreach (var item in Enum.GetValues(typeof(CountryEnum)))
+            //{
+            //    cbCountry.Items.Add(item);
+            //}
 
         }
         private void LoadUrl(int year,int CountryId)
@@ -291,6 +287,11 @@ namespace FootBall
             cbTeam.SelectedIndex = 0;
             cbTeam2.SelectedIndex = 0;
             lbSelect.Text = "";
+        }
+
+        private void lbSelect_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
