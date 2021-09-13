@@ -114,7 +114,7 @@ namespace FootBall
         {
             ReloadListView();
             SeleniumChrome seleniumChrome = new SeleniumChrome();
-            seleniumChrome.LoadData(2019, CountryEnum.西甲);
+            seleniumChrome.LoadData();
             //foreach (var item in Enum.GetValues(typeof(CountryEnum)))
             //{
             //    cbCountry.Items.Add(item);
@@ -290,6 +290,11 @@ namespace FootBall
         }
 
         private void lbSelect_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lvShow_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

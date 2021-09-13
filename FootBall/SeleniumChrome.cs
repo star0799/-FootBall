@@ -29,20 +29,24 @@ namespace FootBall
                 {
                     ReSearch(name);
                     for (int i = 2019; i < 2022; i++)
-                    {                       
-                      if(!writeFile.IsExistData(name, i))
-                        {                      
+                    {
+                        if (i != 2021)
+                        {
+                            if (!writeFile.IsExistData(name, i))
+                            {
+                                SearchData(i);
+                                ListFootBallTeams.Clear();
+                                GetData(i);
+                                writeFile.WriteData(name, i, ListFootBallTeams);
+                            }
+                        }
+                        else
+                        {
+                            //ReSearch(name);
                             SearchData(i);
                             ListFootBallTeams.Clear();
                             GetData(i);
-                            if (i == 2021)
-                            {
-                                writeFile.UpdateData(name, i, ListFootBallTeams);
-                            }
-                            else
-                            {
-                                writeFile.WriteData(name,i, ListFootBallTeams);
-                            }
+                            writeFile.UpdateData(name, i, ListFootBallTeams);
                         }
                     }
                     
@@ -87,9 +91,8 @@ namespace FootBall
         {
           
             IWebElement DowpdownYears;
-            string yearString = year.ToString().Replace("2019", "2019-20").Replace("2020", "2020-21");
-            if (year != 2021)
-            {
+            string yearString = year.ToString().Replace("2019", "2019-20").Replace("2020", "2020-21").Replace("2021","2021-22");
+         
                 //按下下拉選單
                 DowpdownYears = wait.Until(ExpectedConditions.ElementToBeClickable(By.TagName("g-dropdown-button")));
                 DowpdownYears.Click();
@@ -112,7 +115,7 @@ namespace FootBall
 
                     }
                 }
-            }
+            
 
         }
 

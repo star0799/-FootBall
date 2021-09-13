@@ -9,24 +9,27 @@ namespace FootBall
 {
     class WriteFile
     {
+        string path = Path.Combine(System.Windows.Forms.Application.StartupPath);
         public bool IsExistData(string countryEnum, int year)
         {
             bool result = true;
             string line = "";
-            string path = Path.Combine(System.Windows.Forms.Application.StartupPath, countryEnum.ToString(), ".txt");
-            if (File.Exists(path))
+            string DataPath = Path.Combine(path, countryEnum.ToString()+ ".txt");
+            if (File.Exists(DataPath))
             {
-                    StreamReader sr = new StreamReader(path);
+                    StreamReader sr = new StreamReader(DataPath);
                     while ((line = sr.ReadLine()) != null)
                     {
                         if (line.Contains(year.ToString()))
                         {
                             result = true;
+                           
                             break;
                         }
                         else
                             result = false;
-                    }                                    
+                    }
+                sr.Close();
             }
             else
             {
@@ -37,26 +40,33 @@ namespace FootBall
         }
         public void WriteData(string countryEnum, int year,List<FootBallTeams> data)
         {
-            string path = Path.Combine(System.Windows.Forms.Application.StartupPath, countryEnum.ToString());
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
+            //string Datapath = Path.Combine(System.Windows.Forms.Application.StartupPath);
+            //if (!Directory.Exists(path))
+            //{
+            //    Directory.CreateDirectory(path);
+            //}
 
-            using (StreamWriter sw = new StreamWriter(Path.Combine(path, ".txt"), true))
+            using (StreamWriter sw = new StreamWriter(Path.Combine(path, countryEnum + ".txt"), true))
             {             
-                sw.WriteLine(FormatDataFile(data).ToList());
+                foreach(var d in FormatDataFile(data))
+                sw.WriteLine(d);
+                sw.Close();
             }
         }
         public void UpdateData(string countryEnum, int year, List<FootBallTeams> data)
         {
-            string path = Path.Combine(System.Windows.Forms.Application.StartupPath, countryEnum.ToString(), ".txt");
+            //string path = Path.Combine(System.Windows.Forms.Application.StartupPath);
+            //if (!Directory.Exists(path))
+            //{
+            //    Directory.CreateDirectory(path);
+            //}
+           string DataPath = Path.Combine(path, countryEnum.ToString()+".txt");
 
-            if (!File.Exists(path))
+            if (!File.Exists(DataPath))
             {
-                StreamWriter sw = new StreamWriter(path, true);
+                StreamWriter sw = new StreamWriter(DataPath, true);
             }
-            List<string> lines = new List<string>(File.ReadAllLines(path));
+            List<string> lines = new List<string>(File.ReadAllLines(DataPath));
             //先刪除
             for (int i = 0; i < lines.Count; i++)
             {
@@ -72,15 +82,15 @@ namespace FootBall
                 lines.Add(d);
             }
             //寫入檔案
-            File.WriteAllLines(path, lines.ToArray());
-
+            File.WriteAllLines(DataPath, lines.ToArray());
+            
         }
         public List<string> FormatDataFile(List<FootBallTeams> data)
         {
             List<string> result = new List<string>();
             foreach (var d in data)
             {
-                result.Add(d.Years.ToString()+"," + d.TotalGames.ToString()+","+d.WinGames.ToString()+","+d.TieGames.ToString()+"," + d.LoseGames.ToString() + "," + d.WinBall.ToString() + "," + d.LoseBall.ToString() + "," + d.SubtractBall.ToString());
+                result.Add(d.Years.ToString()+","+d.Level.ToString()+","+d.TeamName.ToString()+"," + d.TotalGames.ToString()+","+d.WinGames.ToString()+","+d.TieGames.ToString()+"," + d.LoseGames.ToString() + "," + d.WinBall.ToString() + "," + d.LoseBall.ToString() + "," + d.SubtractBall.ToString());
             }
             return result;
         }

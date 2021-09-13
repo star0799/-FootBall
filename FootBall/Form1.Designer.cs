@@ -65,6 +65,7 @@
             this.lvShow.Size = new System.Drawing.Size(1346, 363);
             this.lvShow.TabIndex = 1;
             this.lvShow.UseCompatibleStateImageBehavior = false;
+            this.lvShow.SelectedIndexChanged += new System.EventHandler(this.lvShow_SelectedIndexChanged);
             // 
             // lvStatistics
             // 
