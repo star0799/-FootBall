@@ -117,11 +117,15 @@ namespace FootBall
             {                                                       
                 Level =Convert.ToInt32(driver.FindElement(By.XPath($"//*[@id='liveresults-sports-immersive__league-fullpage']/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div[" + dynamicIndex + "]/div/table/tbody/tr["+i+"]/td[2]/div[2]")).Text);
                 TeamName =            driver.FindElement(By.XPath($"//*[@id='liveresults-sports-immersive__league-fullpage']/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div[" + dynamicIndex + "]/div/table/tbody/tr["+i+"]/td[3]/div/div/span")).Text;
-                //*[@id="liveresults-sports-immersive__league-fullpage"]/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div[2]/div/table/tbody/tr[2]/td[4]
-                //*[@id="liveresults-sports-immersive__league-fullpage"]/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div[2]/div/table/tbody/tr[2]/td[5]
-                //*[@id="liveresults-sports-immersive__league-fullpage"]/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div[2]/div/table/tbody/tr[2]/td[6]
-                //*[@id="liveresults-sports-immersive__league-fullpage"]/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div[2]/div/table/tbody/tr[2]/td[10]
-                ListFootBallTeams.Add(new FootBallTeams { Level = Level, TeamName = TeamName });
+                TotalGames= Convert.ToInt32(driver.FindElement(By.XPath($"//*[@id='liveresults-sports-immersive__league-fullpage']/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div[" + dynamicIndex + "]/div/table/tbody/tr[" + i + "]/td[4]")).Text);
+                WinGames= Convert.ToInt32(driver.FindElement(By.XPath($"//*[@id='liveresults-sports-immersive__league-fullpage']/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div[" + dynamicIndex + "]/div/table/tbody/tr[" + i + "]/td[5]")).Text);
+                TieGames= Convert.ToInt32(driver.FindElement(By.XPath($"//*[@id='liveresults-sports-immersive__league-fullpage']/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div[" + dynamicIndex + "]/div/table/tbody/tr[" + i + "]/td[6]")).Text);
+                LoseGames= Convert.ToInt32(driver.FindElement(By.XPath($"//*[@id='liveresults-sports-immersive__league-fullpage']/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div[" + dynamicIndex + "]/div/table/tbody/tr[" + i + "]/td[7]")).Text);
+                WinBall= Convert.ToInt32(driver.FindElement(By.XPath($"//*[@id='liveresults-sports-immersive__league-fullpage']/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div[" + dynamicIndex + "]/div/table/tbody/tr[" + i + "]/td[8]")).Text);
+                LoseBall= Convert.ToInt32(driver.FindElement(By.XPath($"//*[@id='liveresults-sports-immersive__league-fullpage']/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div[" + dynamicIndex + "]/div/table/tbody/tr[" + i + "]/td[9]")).Text);
+                SubtractBall=driver.FindElement(By.XPath($"//*[@id='liveresults-sports-immersive__league-fullpage']/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div[" + dynamicIndex + "]/div/table/tbody/tr[" + i + "]/td[10]")).Text.ToString();
+
+                ListFootBallTeams.Add(new FootBallTeams { Level = Level, TeamName = TeamName, TotalGames = TotalGames, WinGames = WinGames, TieGames = TieGames, LoseGames = LoseGames, WinBall = WinBall, LoseBall = LoseBall, SubtractBall = SubtractBall });
             }
         }
 
