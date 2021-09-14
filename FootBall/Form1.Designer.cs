@@ -40,13 +40,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.btnExcel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnTeamsData
             // 
             this.btnTeamsData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTeamsData.Font = new System.Drawing.Font("新細明體", 12F);
-            this.btnTeamsData.Location = new System.Drawing.Point(1186, 605);
+            this.btnTeamsData.Location = new System.Drawing.Point(1213, 605);
             this.btnTeamsData.Name = "btnTeamsData";
             this.btnTeamsData.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.btnTeamsData.Size = new System.Drawing.Size(92, 32);
@@ -173,11 +175,39 @@
             this.label4.TabIndex = 11;
             this.label4.Text = "隊伍2:";
             // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpdate.Font = new System.Drawing.Font("新細明體", 8F);
+            this.btnUpdate.Location = new System.Drawing.Point(1076, 590);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
+            this.btnUpdate.Size = new System.Drawing.Size(65, 26);
+            this.btnUpdate.TabIndex = 12;
+            this.btnUpdate.Text = "更新";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
+            // btnExcel
+            // 
+            this.btnExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExcel.Font = new System.Drawing.Font("新細明體", 8F);
+            this.btnExcel.Location = new System.Drawing.Point(1076, 631);
+            this.btnExcel.Name = "btnExcel";
+            this.btnExcel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
+            this.btnExcel.Size = new System.Drawing.Size(65, 24);
+            this.btnExcel.TabIndex = 13;
+            this.btnExcel.Text = "匯出Excel";
+            this.btnExcel.UseVisualStyleBackColor = true;
+            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1346, 667);
+            this.Controls.Add(this.btnExcel);
+            this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -212,6 +242,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Button btnExcel;
     }
 }
 
