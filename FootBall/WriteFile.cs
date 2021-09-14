@@ -10,6 +10,7 @@ namespace FootBall
     class WriteFile
     {
         string path = Path.Combine(System.Windows.Forms.Application.StartupPath);
+        //判斷檔案和檔案內容是否存在
         public bool IsExistData(string countryEnum, int year)
         {
             bool result = true;
@@ -38,6 +39,7 @@ namespace FootBall
            
             return result;
         }
+        //2019,2020專用寫入檔案完就不會在使用
         public void WriteData(string countryEnum, int year,List<FootBallTeams> data)
         {
             //string Datapath = Path.Combine(System.Windows.Forms.Application.StartupPath);
@@ -45,7 +47,7 @@ namespace FootBall
             //{
             //    Directory.CreateDirectory(path);
             //}
-
+           
             using (StreamWriter sw = new StreamWriter(Path.Combine(path, countryEnum + ".txt"), true))
             {             
                 foreach(var d in FormatDataFile(data))
@@ -53,6 +55,7 @@ namespace FootBall
                 sw.Close();
             }
         }
+        //2021專用不管檔案存不存在都會去寫入
         public void UpdateData(string countryEnum, int year, List<FootBallTeams> data)
         {
             //string path = Path.Combine(System.Windows.Forms.Application.StartupPath);
@@ -87,6 +90,7 @@ namespace FootBall
         }
         public List<string> FormatDataFile(List<FootBallTeams> data)
         {
+            //把隊伍結果串起來存入txt
             List<string> result = new List<string>();
             foreach (var d in data)
             {

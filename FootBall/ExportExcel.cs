@@ -25,11 +25,12 @@ namespace FootBall
                 {
                     ReadTxtFile readTxtFile = new ReadTxtFile();
                     List<FootBallTeams> ListFootBallTeams = new List<FootBallTeams>();
+                    //讀txt
                     ListFootBallTeams = readTxtFile.ReadFile(name);
                     //新增分頁
                     ISheet sheet = workbook.CreateSheet(name);
                     IRow row0 = sheet.CreateRow(0);
-                    sheet.CreateFreezePane(0, 1, 0, 1);
+                    sheet.CreateFreezePane(0, 1, 0, 1); //凍結窗格
                     ICellStyle headerStyle = workbook.CreateCellStyle();
                     IFont headerfont = workbook.CreateFont();
                     headerStyle.Alignment = HorizontalAlignment.Center; //水平置中
@@ -37,7 +38,7 @@ namespace FootBall
                     headerfont.FontName = "微軟正黑體";
                     headerfont.FontHeightInPoints = 12;
                     headerfont.Boldweight = (short)FontBoldWeight.Bold;//粗體
-                    headerStyle.SetFont(headerfont);
+                    headerStyle.SetFont(headerfont); 
                     row0.CreateCell(0).SetCellValue("年份");
                     row0.CreateCell(1).SetCellValue("排名");
                     row0.CreateCell(2).SetCellValue("隊名");
@@ -53,6 +54,7 @@ namespace FootBall
                     row0.CreateCell(12).SetCellValue("平均失分");
                     row0.CreateCell(13).SetCellValue("平均淨勝");
                     row0.CreateCell(14).SetCellValue("勝率");
+                    //把欄位加入css
                     for (int j = 0; j < row0.Cells.Count; j++)
                         sheet.GetRow(0).GetCell(j).CellStyle = headerStyle;
                     for (int r = 1; r < ListFootBallTeams.Count; r++)
@@ -96,6 +98,7 @@ namespace FootBall
                 workbook.Write(url);
             };
         }
+        //判斷檔案存在
         public bool IsExistTxtFile(string countryEnum)
         {            
             string DataPath = Path.Combine(path, countryEnum.ToString() + ".txt");

@@ -45,7 +45,12 @@ namespace FootBall
                 cbTeamValue = cbTeam.SelectedItem.ToString();
             if (cbTeam.SelectedIndex != 0)
                 cbTeam2Value = cbTeam2.SelectedItem.ToString();
-
+            
+            if (ListFootBallTeams.Count == 0)
+            {
+                MessageBox.Show("找不到資料請重新操作");
+                return;
+            }
 
             var query = (from lfb in ListFootBallTeams
                          where (cbYearValue==null || lfb.Years== cbYearValue) && ((cbTeamValue == null || lfb.TeamName == cbTeamValue)||(cbTeam2Value == null || lfb.TeamName == cbTeam2Value))
@@ -301,7 +306,7 @@ namespace FootBall
             else
             {
                 log.WriteLog("匯入資料失敗");
-                lbSelect.Text = "匯入失敗，請按更新後在重新選擇國家";
+                MessageBox.Show("匯入失敗，請按更新後在重新選擇國家");
             }
         }
 
@@ -322,10 +327,13 @@ namespace FootBall
             {
                 SeleniumChrome seleniumChrome = new SeleniumChrome();
                 seleniumChrome.LoadData();
+                log.WriteLog("爬蟲完成!");
+                MessageBox.Show("更新完成");
             }
             catch(Exception ex)
             {
                 log.WriteLog("爬蟲失敗，原因 : "+ex.Message);
+                MessageBox.Show("更新失敗，原因 : " + ex.Message);
             }
         }
 
@@ -337,6 +345,7 @@ namespace FootBall
             {
                 exportExcel.ExportDataExcel();
                 log.WriteLog("匯出Excel成功");
+                MessageBox.Show("匯出Excel成功，位置 : "+ System.Windows.Forms.Application.StartupPath);
             }
             catch(Exception ex)
             {

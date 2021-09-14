@@ -25,6 +25,7 @@ namespace FootBall
             
             try
             {
+                //2021不管檔案有沒有存在都會去更新
                 foreach (string name in Enum.GetNames(typeof(CountryEnum)))
                 {
                     ReSearch(name);
@@ -37,6 +38,7 @@ namespace FootBall
                                 SearchData(i);
                                 ListFootBallTeams.Clear();
                                 GetData(i);
+                                //寫入txt
                                 writeFile.WriteData(name, i, ListFootBallTeams);
                             }
                         }
@@ -46,6 +48,7 @@ namespace FootBall
                             SearchData(i);
                             ListFootBallTeams.Clear();
                             GetData(i);
+                            //2021寫入txt
                             writeFile.UpdateData(name, i, ListFootBallTeams);
                         }
                     }
@@ -64,7 +67,7 @@ namespace FootBall
             }
 
         }
-
+        //重新到google頁面搜尋
         public void ReSearch(string country)
         {
             try
@@ -87,6 +90,7 @@ namespace FootBall
                 log.WriteLog("ReSearch，重新搜尋錯誤。"+ex.Message);
             }
         }
+        //切換不同年份資料
         public void SearchData(int year)
         {
           
@@ -118,7 +122,7 @@ namespace FootBall
             
 
         }
-
+        //取資料並存入list
         public void GetData(int year)
         {
             int TeamsCount = default;

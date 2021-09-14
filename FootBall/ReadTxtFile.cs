@@ -11,6 +11,7 @@ namespace FootBall
     {
         string path = Path.Combine(System.Windows.Forms.Application.StartupPath);
         log log = new log();
+        //從txt讀檔轉成list
         public List<FootBallTeams> ReadFile(string countryEnum)
         {
             List<FootBallTeams> ListFootBallTeams = new List<FootBallTeams>();
