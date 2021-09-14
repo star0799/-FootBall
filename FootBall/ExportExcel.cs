@@ -57,7 +57,7 @@ namespace FootBall
                     //把欄位加入css
                     for (int j = 0; j < row0.Cells.Count; j++)
                         sheet.GetRow(0).GetCell(j).CellStyle = headerStyle;
-                    for (int r = 1; r < ListFootBallTeams.Count; r++)
+                    for (int r = 0; r < ListFootBallTeams.Count; r++)
                     {                       
                         double AvgWinBall = default;
                         double AvgLoseBall = default;
@@ -69,7 +69,7 @@ namespace FootBall
                         RealWinGameCount = ListFootBallTeams[r].WinGames - (ListFootBallTeams[r].TieGames + ListFootBallTeams[r].LoseGames);
                         ClearAvg = Math.Round(Convert.ToDouble(ListFootBallTeams[r].SubtractBall) / Convert.ToDouble(ListFootBallTeams[r].TotalGames), 2);
                         WinRate = Math.Round(Convert.ToDouble(ListFootBallTeams[r].WinGames) / Convert.ToDouble(ListFootBallTeams[r].TotalGames), 2) * 100;
-                        IRow row = sheet.CreateRow(r);
+                        IRow row = sheet.CreateRow(r+1);
                         row.CreateCell(0).SetCellValue(ListFootBallTeams[r].Years);
                         row.CreateCell(1).SetCellValue(ListFootBallTeams[r].Level);
                         row.CreateCell(2).SetCellValue(ListFootBallTeams[r].TeamName);
@@ -84,7 +84,7 @@ namespace FootBall
                         row.CreateCell(11).SetCellValue(AvgWinBall);
                         row.CreateCell(12).SetCellValue(AvgLoseBall);
                         row.CreateCell(13).SetCellValue(ClearAvg);
-                        row.CreateCell(14).SetCellValue(WinRate);
+                        row.CreateCell(14).SetCellValue(WinRate+"%");
                     }             
                 }
                 else

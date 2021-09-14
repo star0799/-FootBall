@@ -15,7 +15,7 @@ namespace FootBall
     {
         WebDriverWait wait;
         IWebElement iwe;
-       static IWebDriver driver = new ChromeDriver();
+        IWebDriver driver = new ChromeDriver();
         FootBallTeams footBallTeams = new FootBallTeams();
         List<FootBallTeams> ListFootBallTeams = new List<FootBallTeams>();
         WriteFile writeFile = new WriteFile();

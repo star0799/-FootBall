@@ -48,7 +48,7 @@
             // 
             this.btnTeamsData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTeamsData.Font = new System.Drawing.Font("新細明體", 12F);
-            this.btnTeamsData.Location = new System.Drawing.Point(1213, 605);
+            this.btnTeamsData.Location = new System.Drawing.Point(1242, 600);
             this.btnTeamsData.Name = "btnTeamsData";
             this.btnTeamsData.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.btnTeamsData.Size = new System.Drawing.Size(92, 32);
@@ -121,7 +121,7 @@
             this.lbSelect.AutoSize = true;
             this.lbSelect.Font = new System.Drawing.Font("新細明體", 12F);
             this.lbSelect.ForeColor = System.Drawing.Color.Red;
-            this.lbSelect.Location = new System.Drawing.Point(1183, 374);
+            this.lbSelect.Location = new System.Drawing.Point(1128, 374);
             this.lbSelect.Name = "lbSelect";
             this.lbSelect.Size = new System.Drawing.Size(108, 16);
             this.lbSelect.TabIndex = 6;
@@ -179,7 +179,7 @@
             // 
             this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUpdate.Font = new System.Drawing.Font("新細明體", 8F);
-            this.btnUpdate.Location = new System.Drawing.Point(1076, 590);
+            this.btnUpdate.Location = new System.Drawing.Point(1131, 585);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.btnUpdate.Size = new System.Drawing.Size(65, 26);
@@ -192,7 +192,7 @@
             // 
             this.btnExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExcel.Font = new System.Drawing.Font("新細明體", 8F);
-            this.btnExcel.Location = new System.Drawing.Point(1076, 631);
+            this.btnExcel.Location = new System.Drawing.Point(1131, 631);
             this.btnExcel.Name = "btnExcel";
             this.btnExcel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.btnExcel.Size = new System.Drawing.Size(65, 24);
