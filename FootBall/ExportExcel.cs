@@ -31,6 +31,7 @@ namespace FootBall
                     ISheet sheet = workbook.CreateSheet(name);
                     IRow row0 = sheet.CreateRow(0);
                     sheet.CreateFreezePane(0, 1, 0, 1); //凍結窗格
+                    sheet.IsPrintGridlines = true;//列印顯示框線
                     ICellStyle headerStyle = workbook.CreateCellStyle();
                     IFont headerfont = workbook.CreateFont();
                     headerStyle.Alignment = HorizontalAlignment.Center; //水平置中
@@ -46,13 +47,17 @@ namespace FootBall
                     row0.CreateCell(4).SetCellValue("贏局");
                     row0.CreateCell(5).SetCellValue("輸局");
                     row0.CreateCell(6).SetCellValue("和局");
-                    row0.CreateCell(7).SetCellValue("勝-(和+負)");
+                    row0.CreateCell(7).SetCellValue("勝-(和+負)"); 
+                    sheet.SetColumnWidth(7, 3000); //設定寬度
                     row0.CreateCell(8).SetCellValue("進球");
                     row0.CreateCell(9).SetCellValue("失球");
                     row0.CreateCell(10).SetCellValue("淨勝");
                     row0.CreateCell(11).SetCellValue("平均得分");
+                    sheet.SetColumnWidth(11, 3000); //設定寬度
                     row0.CreateCell(12).SetCellValue("平均失分");
+                    sheet.SetColumnWidth(12, 3000);//設定寬度
                     row0.CreateCell(13).SetCellValue("平均淨勝");
+                    sheet.SetColumnWidth(13, 3000);//設定寬度
                     row0.CreateCell(14).SetCellValue("勝率");
                     //把欄位加入css
                     for (int j = 0; j < row0.Cells.Count; j++)
