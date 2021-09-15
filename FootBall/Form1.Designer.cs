@@ -179,7 +179,7 @@
             // 
             this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUpdate.Font = new System.Drawing.Font("新細明體", 8F);
-            this.btnUpdate.Location = new System.Drawing.Point(1131, 585);
+            this.btnUpdate.Location = new System.Drawing.Point(1143, 585);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.btnUpdate.Size = new System.Drawing.Size(65, 26);
@@ -192,7 +192,7 @@
             // 
             this.btnExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExcel.Font = new System.Drawing.Font("新細明體", 8F);
-            this.btnExcel.Location = new System.Drawing.Point(1131, 631);
+            this.btnExcel.Location = new System.Drawing.Point(1143, 631);
             this.btnExcel.Name = "btnExcel";
             this.btnExcel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.btnExcel.Size = new System.Drawing.Size(65, 24);
