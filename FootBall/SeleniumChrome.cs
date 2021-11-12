@@ -22,16 +22,17 @@ namespace FootBall
         log log = new log();
         public void LoadData()
         {
-            
+            int StartYear = DateTime.Now.Year-2;
+            int EndYear = DateTime.Now.Year;
             try
             {
-                //2021不管檔案有沒有存在都會去更新
+                //目前年份不管檔案有沒有存在都會去更新
                 foreach (string name in Enum.GetNames(typeof(CountryEnum)))
                 {
                     ReSearch(name);
-                    for (int i = 2019; i < 2022; i++)
+                    for (int i = StartYear; i <= EndYear; i++)
                     {
-                        if (i != 2021)
+                        if (i != EndYear)
                         {
                             if (!writeFile.IsExistData(name, i))
                             {
@@ -48,7 +49,7 @@ namespace FootBall
                             SearchData(i);
                             ListFootBallTeams.Clear();
                             GetData(i);
-                            //2021寫入txt
+                            //目前年份寫入txt
                             writeFile.UpdateData(name, i, ListFootBallTeams);
                         }
                     }
@@ -95,10 +96,11 @@ namespace FootBall
         {
           
             IWebElement DowpdownYears;
-            string yearString = year.ToString().Replace("2019", "2019-20").Replace("2020", "2020-21").Replace("2021","2021-22");
-         
+            string tmpNextYear =((year + 1).ToString()).Substring(2,2);
+            string yearString = year.ToString() +"-"+ tmpNextYear;
+
                 //按下下拉選單
-                DowpdownYears = wait.Until(ExpectedConditions.ElementToBeClickable(By.TagName("g-dropdown-button")));
+            DowpdownYears = wait.Until(ExpectedConditions.ElementToBeClickable(By.TagName("g-dropdown-button")));
                 DowpdownYears.Click();
                 //找出所有g-menu-item
                 var itemCount = driver.FindElements(By.TagName("g-menu-item"));
@@ -131,7 +133,6 @@ namespace FootBall
             string TeamName;
             string SubtractBall;
             IWebElement TeamsData;
-            //*[@id="liveresults-sports-immersive__league-fullpage"]/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div[1]/div/table/tbody/tr[2]
             try
             {
                 wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath($"//*[@id='liveresults-sports-immersive__league-fullpage']/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div[" + dynamicIndex + "]/ div/table/tbody/tr")));

@@ -17,10 +17,8 @@ namespace FootBall
         log log = new log();
         public const int LevelCount= 20;
         List<FootBallTeams> ListFootBallTeams = new List<FootBallTeams>();
-        FootBallTeams footBallTeams2019 = new FootBallTeams();
-        //HtmlWeb webClient = new HtmlWeb();
         ReadTxtFile readTxtFile = new ReadTxtFile();
-        int endYear = 2021;
+        int endYear = DateTime.Now.Year;
         public Form1()
         {
             InitializeComponent();
@@ -128,80 +126,7 @@ namespace FootBall
             }
 
         }
-        //private void LoadUrl(int year,int CountryId)
-        //{
-        //   HtmlAgilityPack.HtmlDocument doc = default;
-        //   ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-        //    int tableIndex = 0;
-        //    switch (CountryId)
-        //    {
-        //        case 0:
-        //            if(year==2019 || year == 2020)                   
-        //                tableIndex = 5;                    
-        //            else if(year==2021)
-        //                tableIndex = 7;
-        //            doc = webClient.Load(ConfigurationManager.AppSettings["PremierLeague"+ year]);
-        //            break;
-        //        case 1:
-        //            if (year == 2019)
-        //            tableIndex = 6;
-        //            else if (year == 2020)
-        //                tableIndex = 5;
-        //            doc = webClient.Load(ConfigurationManager.AppSettings["Italian" + year]);
-        //            break;
-        //        case 2:
-        //            if (year == 2019)
-        //                tableIndex = 7;
-        //            else if (year == 2020)
-        //                tableIndex = 6;
-        //            doc = webClient.Load(ConfigurationManager.AppSettings["Spain" + year]);
-        //            break;
-        //        case 3:
-        //                tableIndex = 6;
-        //            doc = webClient.Load(ConfigurationManager.AppSettings["Germany" + year]);
-        //            break;
-        //        case 4:
-        //            if (year == 2019)
-        //                tableIndex = 6;
-        //            else if (year == 2020)
-        //                tableIndex = 5;
-        //            doc = webClient.Load(ConfigurationManager.AppSettings["France" + year]);
-        //            break;
-        //    }
-        //    GetGameData(doc, year, tableIndex);
-        //}
 
-        
-        //private void GetGameData(HtmlAgilityPack.HtmlDocument doc,int year,int tableIndex)
-        //{
-
-        //    int Years, Level, TotalGames, WinGames, LoseGames, TieGames, WinBall, LoseBall;
-        //    string TeamName;
-        //    string SubtractBall;
-        //    int TeamCounts = doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{tableIndex}]/tbody/tr").Count-1;
-        //    //int getXpathIndex2021 =0;
-        //    //取2021位置不同
-        //    //if (year==2021)
-        //    //    getXpathIndex2021 = 2;
-        //    for (int i = 2; i < TeamCounts+2; i++)
-        //    {
-        //        Years = year;
-        //        //*[@id="mw-content-text"]/div[1]/table[5]/tbody/tr[2]   
-        //                                                               //*[@id="mw-content-text"]/div[1]/table[7]/tbody/tr[2]
-        //        Level = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{tableIndex}]/tbody/tr[{i}]/td")[0].InnerHtml);
-                                                                      
-        //        TeamName = doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{tableIndex}]/tbody/tr[{i}]/th")[0].InnerText;
-        //        TeamName = TeamName.Replace("(C)", "").Replace("(R)", "").Replace("(O)", "").Replace("\n","").Trim().Replace("RB萊比錫", "RB莱比锡");
-        //        TotalGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{tableIndex}]/tbody/tr[{i}]/td")[1].InnerHtml);
-        //        WinGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{tableIndex}]/tbody/tr[{i}]/td")[2].InnerHtml);
-        //        TieGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{tableIndex}]/tbody/tr[{i}]/td")[3].InnerHtml);
-        //        LoseGames = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{tableIndex}]/tbody/tr[{i}]/td")[4].InnerHtml);
-        //        WinBall = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{tableIndex}]/tbody/tr[{i}]/td")[5].InnerHtml);
-        //        LoseBall = Convert.ToInt32(doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{tableIndex}]/tbody/tr[{i}]/td")[6].InnerHtml);
-        //        SubtractBall = (doc.DocumentNode.SelectNodes($"//*[@id='mw-content-text']/div[1]/table[{tableIndex}]/tbody/tr[{i}]/td")[7].InnerHtml).Replace("&#8722;","-").Trim();
-        //        ListFootBallTeams.Add(new FootBallTeams { Years=Years, Level = Level, TeamName = TeamName, TotalGames = TotalGames, WinGames = WinGames, TieGames = TieGames, LoseGames = LoseGames, WinBall = WinBall, LoseBall = LoseBall, SubtractBall = SubtractBall });
-        //    }
-        //}
         private void ReloadListView()
         {
 
@@ -263,14 +188,6 @@ namespace FootBall
             log.WriteLog("匯入資料完成...");
             if (ListFootBallTeams.Count != 0)
             {
-                //int CountryId = cbCountry.SelectedIndex;
-                //if (cbCountry.SelectedIndex == 0)
-                //    endYear = 2022;
-                //else
-                //    endYear = 2021;
-
-                //for (int beginYear = 2019; beginYear < endYear; beginYear++)
-                //    LoadUrl(beginYear, CountryId);
 
                 var DistinctYears = (from m in ListFootBallTeams
                                      orderby m.Years
