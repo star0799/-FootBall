@@ -96,8 +96,8 @@ namespace FootBall
         {
           
             IWebElement DowpdownYears;
-            string tmpNextYear =((year + 1).ToString()).Substring(2,2);
-            string yearString = year.ToString() +"-"+ tmpNextYear;
+            string tmpNextYear =((year).ToString()).Substring(2,2);
+            string yearString = (year-1).ToString() +"-"+ tmpNextYear;
 
                 //按下下拉選單
             DowpdownYears = wait.Until(ExpectedConditions.ElementToBeClickable(By.TagName("g-dropdown-button")));
