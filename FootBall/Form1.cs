@@ -239,6 +239,8 @@ namespace FootBall
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            UpdateChromDriver updateChromDriver = new UpdateChromDriver();
+            updateChromDriver.UpdateChromDriverFun();
             log.WriteLog("爬蟲開始...");
             try
             {
