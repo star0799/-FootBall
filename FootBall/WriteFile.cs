@@ -39,15 +39,9 @@ namespace FootBall
            
             return result;
         }
-        //2019,2020專用寫入檔案完就不會在使用
+        //前兩年專用寫入檔案完就不會在使用
         public void WriteData(string countryEnum, int year,List<FootBallTeams> data)
         {
-            //string Datapath = Path.Combine(System.Windows.Forms.Application.StartupPath);
-            //if (!Directory.Exists(path))
-            //{
-            //    Directory.CreateDirectory(path);
-            //}
-           
             using (StreamWriter sw = new StreamWriter(Path.Combine(path, countryEnum + ".txt"), true))
             {             
                 foreach(var d in FormatDataFile(data))
@@ -55,14 +49,11 @@ namespace FootBall
                 sw.Close();
             }
         }
-        //2021專用不管檔案存不存在都會去寫入
+        //今年專用不管檔案存不存在都會去寫入
         public void UpdateData(string countryEnum, int year, List<FootBallTeams> data)
         {
-            //string path = Path.Combine(System.Windows.Forms.Application.StartupPath);
-            //if (!Directory.Exists(path))
-            //{
-            //    Directory.CreateDirectory(path);
-            //}
+            //取得目前年份
+            string NowYear = DateTime.Now.Year.ToString();
            string DataPath = Path.Combine(path, countryEnum.ToString()+".txt");
 
             if (!File.Exists(DataPath))
@@ -73,7 +64,8 @@ namespace FootBall
             //先刪除
             for (int i = 0; i < lines.Count; i++)
             {
-                if (lines[i].Contains("2021"))
+                //判斷是今年先把檔資料刪除
+                if (lines[i].Contains(NowYear))
                 {
                     lines.RemoveAt(i);                   
                     i--;
