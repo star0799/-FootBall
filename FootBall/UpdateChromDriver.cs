@@ -17,6 +17,7 @@ namespace FootBall
 {
     class UpdateChromDriver
     {
+        static log _log = new log();
         public void UpdateChromDriverFun()
         {
             string ChromeDriverPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
@@ -35,19 +36,24 @@ namespace FootBall
         static string GetChromDriverVersion(string ChromeDriverePath)
         {
             string driverversion = "";
-            if (File.Exists(ChromeDriverePath + "\\chromedriver.exe"))
+            try
             {
-                IWebDriver driver = new ChromeDriver(ChromeDriverePath);
-                ICapabilities capabilities = ((ChromeDriver)driver).Capabilities;
-                driverversion = ((capabilities.GetCapability("chrome") as Dictionary<string, object>)["chromedriverVersion"]).ToString().Split(' ').First();
-                driver.Dispose();
+                if (File.Exists(ChromeDriverePath + "\\chromedriver.exe"))
+                {
+                    IWebDriver driver = new ChromeDriver(ChromeDriverePath);
+                    ICapabilities capabilities = ((ChromeDriver)driver).Capabilities;
+                    driverversion = ((capabilities.GetCapability("chrome") as Dictionary<string, object>)["chromedriverVersion"]).ToString().Split(' ').First();
+                    driver.Dispose();
+                }
+                else
+                {
+                    Console.WriteLine("ChromeDriver.exe missing !!");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                Console.WriteLine("ChromeDriver.exe missing !!");
+                _log.WriteLog(ex.ToString());
             }
-
-
             return driverversion;
         }
         static string GetChromeWebPath()
