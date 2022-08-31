@@ -24,7 +24,7 @@ namespace FootBall
         public void LoadData()
         {
             int StartYear = DateTime.Now.Year-2;
-            int EndYear = DateTime.Now.Year;
+            int EndYear = DateTime.Now.Year+1;
             try
             {
                 //目前年份不管檔案有沒有存在都會去更新
@@ -100,7 +100,7 @@ namespace FootBall
             string tmpNextYear =((year).ToString()).Substring(2,2);
             string yearString = (year-1).ToString() +"-"+ tmpNextYear;
 
-                //按下下拉選單
+            //按下下拉選單
             DowpdownYears = wait.Until(ExpectedConditions.ElementToBeClickable(By.TagName("g-dropdown-button")));
                 DowpdownYears.Click();
                 //找出所有g-menu-item

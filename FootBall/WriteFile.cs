@@ -54,13 +54,22 @@ namespace FootBall
         {
             //取得目前年份
             string NowYear = DateTime.Now.Year.ToString();
-           string DataPath = Path.Combine(path, countryEnum.ToString()+".txt");
+            string DataPath = Path.Combine(path, countryEnum.ToString()+".txt");
+
+            //移除多餘的年份
+            int MaxYears = data.Select(x => x.Years).Distinct().Count();
+            if (MaxYears > 3)
+            {
+                int deleteYears=data.Select(x => x.Years).Min();
+                data.RemoveAll(x => x.Years == deleteYears);
+            }
 
             if (!File.Exists(DataPath))
             {
                 StreamWriter sw = new StreamWriter(DataPath, true);
             }
             List<string> lines = new List<string>(File.ReadAllLines(DataPath));
+            
             //先刪除
             for (int i = 0; i < lines.Count; i++)
             {
