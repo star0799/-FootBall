@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -42,6 +43,7 @@ namespace FootBall
         //前兩年專用寫入檔案完就不會在使用
         public void WriteData(string countryEnum, int year,List<FootBallTeams> data)
         {
+            data = FilterYears(data);
             using (StreamWriter sw = new StreamWriter(Path.Combine(path, countryEnum + ".txt"), true))
             {             
                 foreach(var d in FormatDataFile(data))
@@ -55,15 +57,7 @@ namespace FootBall
             //取得目前年份
             string NowYear = DateTime.Now.Year.ToString();
             string DataPath = Path.Combine(path, countryEnum.ToString()+".txt");
-
-            //移除多餘的年份
-            int MaxYears = data.Select(x => x.Years).Distinct().Count();
-            if (MaxYears > 3)
-            {
-                int deleteYears=data.Select(x => x.Years).Min();
-                data.RemoveAll(x => x.Years == deleteYears);
-            }
-
+            data = FilterYears(data);
             if (!File.Exists(DataPath))
             {
                 StreamWriter sw = new StreamWriter(DataPath, true);
@@ -98,6 +92,18 @@ namespace FootBall
                 result.Add(d.Years.ToString()+","+d.Level.ToString()+","+d.TeamName.ToString()+"," + d.TotalGames.ToString()+","+d.WinGames.ToString()+","+d.TieGames.ToString()+"," + d.LoseGames.ToString() + "," + d.WinBall.ToString() + "," + d.LoseBall.ToString() + "," + d.SubtractBall.ToString());
             }
             return result;
+        }
+        //移除多餘的年份
+        public List<FootBallTeams> FilterYears(List<FootBallTeams> data)
+        {           
+            int DataYeas = Convert.ToInt16(ConfigurationManager.AppSettings["DataYeas"]);
+            int MaxYears = data.Select(x => x.Years).Distinct().Count();
+            if (MaxYears > DataYeas)
+            {
+                int deleteYears = data.Select(x => x.Years).Min();
+                data.RemoveAll(x => x.Years == deleteYears);
+            }
+            return data;
         }
     }
 }

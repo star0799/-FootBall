@@ -15,10 +15,8 @@ namespace FootBall
     public partial class Form1 : Form
     {
         log log = new log();
-        public const int LevelCount= 20;
         List<FootBallTeams> ListFootBallTeams = new List<FootBallTeams>();
         ReadTxtFile readTxtFile = new ReadTxtFile();
-        int endYear = DateTime.Now.Year;
         public Form1()
         {
             InitializeComponent();

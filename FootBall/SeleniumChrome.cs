@@ -11,7 +11,7 @@ using System.Configuration;
 
 namespace FootBall
 {
-   
+
     class SeleniumChrome
     {
         WebDriverWait wait;
@@ -23,8 +23,10 @@ namespace FootBall
         log log = new log();
         public void LoadData()
         {
-            int StartYear = DateTime.Now.Year-2;
-            int EndYear = DateTime.Now.Year+1;
+            int DataYeas = Convert.ToInt16(ConfigurationManager.AppSettings["DataYeas"]) + 1;
+            int StartYear = DateTime.Now.Year - DataYeas;
+            //多抓下一年看有沒有值，寫入txt那段會篩掉
+            int EndYear = DateTime.Now.Year + 1;
             try
             {
                 //目前年份不管檔案有沒有存在都會去更新
@@ -54,12 +56,12 @@ namespace FootBall
                             writeFile.UpdateData(name, i, ListFootBallTeams);
                         }
                     }
-                    
+
                 }
-                
-              
+
+
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 log.WriteLog(ex.Message);
             }
@@ -87,42 +89,42 @@ namespace FootBall
                 RecordSubmit = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath($"//*[@id='sports-app']/div/div[2]/div/div/div/ol/li[3]")));
                 RecordSubmit.Click();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                log.WriteLog("ReSearch，重新搜尋錯誤。"+ex.Message);
+                log.WriteLog("ReSearch，重新搜尋錯誤。" + ex.Message);
             }
         }
         //切換不同年份資料
         public void SearchData(int year)
         {
-          
+
             IWebElement DowpdownYears;
-            string tmpNextYear =((year).ToString()).Substring(2,2);
-            string yearString = (year-1).ToString() +"-"+ tmpNextYear;
+            string tmpNextYear = ((year).ToString()).Substring(2, 2);
+            string yearString = (year - 1).ToString() + "-" + tmpNextYear;
 
             //按下下拉選單
             DowpdownYears = wait.Until(ExpectedConditions.ElementToBeClickable(By.TagName("g-dropdown-button")));
-                DowpdownYears.Click();
-                //找出所有g-menu-item
-                var itemCount = driver.FindElements(By.TagName("g-menu-item"));
-                foreach (var i in itemCount)
+            DowpdownYears.Click();
+            //找出所有g-menu-item
+            var itemCount = driver.FindElements(By.TagName("g-menu-item"));
+            foreach (var i in itemCount)
+            {
+                try
                 {
-                    try
+                    //在g-menu-item的div裡找出文字並按下
+                    string DowpdownItem = i.FindElement(By.TagName("div")).Text;
+                    if (DowpdownItem == yearString)
                     {
-                        //在g-menu-item的div裡找出文字並按下
-                        string DowpdownItem = i.FindElement(By.TagName("div")).Text;
-                        if (DowpdownItem == yearString)
-                        {
-                            i.Click();
-                            break;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                    log.WriteLog("SearchData錯誤 : "+ex.Message);
+                        i.Click();
+                        break;
                     }
                 }
-            
+                catch (Exception ex)
+                {
+                    log.WriteLog("SearchData錯誤 : " + ex.Message);
+                }
+            }
+
 
         }
         //取資料並存入list
@@ -133,36 +135,35 @@ namespace FootBall
             int Years, Level, TotalGames, WinGames, LoseGames, TieGames, WinBall, LoseBall;
             string TeamName;
             string SubtractBall;
-            IWebElement TeamsData;
-            string XPath= ConfigurationManager.AppSettings["XPath"];
+            string XPath = ConfigurationManager.AppSettings["XPath"];
+            int Element = Convert.ToInt16(ConfigurationManager.AppSettings["Element"]);
             try
             {
-                                                                              //*[@id="liveresults-sports-immersive__league-fullpage"]/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div/div[2]/div/div[2]/div/table/tbody/tr[1]
-                wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(XPath+ "/div["+ dynamicIndex +"]/div/table/tbody/tr[1]")));
+                //*[@id="liveresults-sports-immersive__league-fullpage"]/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div/div[2]/div/div[2]/div/table/tbody/tr[1]
+                wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(XPath + "/div[" + dynamicIndex + "]/div/table/tbody/tr[1]")));
                 //TeamsCount = driver.FindElements(By.XPath($"//*[@id='liveresults-sports-immersive__league-fullpage']/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div[" + dynamicIndex + "]/ div/table/tbody/tr")).Count;
-                 TeamsCount = driver.FindElements(By.XPath(XPath +"/div["+ dynamicIndex + "]/div/table/tbody/tr")).Count;
+                TeamsCount = driver.FindElements(By.XPath(XPath + "/div[" + dynamicIndex + "]/div/table/tbody/tr")).Count;
                 if (TeamsCount == 0)
                 {
                     dynamicIndex++;
                     TeamsCount = driver.FindElements(By.XPath($"//*[@id='liveresults-sports-immersive__league-fullpage']/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div[" + dynamicIndex + "]/ div/table/tbody/tr")).Count;
                 }
-                for (int i = 2; i < TeamsCount + 1; i++)
+                for (int i = Element; i < TeamsCount + 1; i++)
                 {
                     Years = year;
-                    Level = Convert.ToInt32(driver.FindElement(By.XPath(XPath+ "/div[" + dynamicIndex + "]/div/table/tbody/tr[" + i+"]/td[2]/div[2]")).Text);
-                    TeamName =              driver.FindElement(By.XPath(XPath+ "/div[" + dynamicIndex + "]/div/table/tbody/tr[" + i+"]/td[3]/div/div/span")).Text;
-               TotalGames = Convert.ToInt32(driver.FindElement(By.XPath(XPath+ "/div[" + dynamicIndex + "]/div/table/tbody/tr[" + i+"]/td[4]")).Text);
+                    Level = Convert.ToInt32(driver.FindElement(By.XPath(XPath + "/div[" + dynamicIndex + "]/div/table/tbody/tr[" + i + "]/td[2]/div[2]")).Text);
+                    TeamName = driver.FindElement(By.XPath(XPath + "/div[" + dynamicIndex + "]/div/table/tbody/tr[" + i + "]/td[3]/div/div/span")).Text;
+                    TotalGames = Convert.ToInt32(driver.FindElement(By.XPath(XPath + "/div[" + dynamicIndex + "]/div/table/tbody/tr[" + i + "]/td[4]")).Text);
                     WinGames = Convert.ToInt32(driver.FindElement(By.XPath(XPath + "/div[" + dynamicIndex + "]/div/table/tbody/tr[" + i + "]/td[5]")).Text);
                     TieGames = Convert.ToInt32(driver.FindElement(By.XPath(XPath + "/div[" + dynamicIndex + "]/div/table/tbody/tr[" + i + "]/td[6]")).Text);
                     LoseGames = Convert.ToInt32(driver.FindElement(By.XPath(XPath + "/div[" + dynamicIndex + "]/div/table/tbody/tr[" + i + "]/td[7]")).Text);
                     WinBall = Convert.ToInt32(driver.FindElement(By.XPath(XPath + "/div[" + dynamicIndex + "]/div/table/tbody/tr[" + i + "]/td[8]")).Text);
                     LoseBall = Convert.ToInt32(driver.FindElement(By.XPath(XPath + "/div[" + dynamicIndex + "]/div/table/tbody/tr[" + i + "]/td[9]")).Text);
-                                SubtractBall = driver.FindElement(By.XPath(XPath + "/div[" + dynamicIndex + "]/div/table/tbody/tr[" + i + "]/td[10]")).Text.ToString();
-
+                    SubtractBall = driver.FindElement(By.XPath(XPath + "/div[" + dynamicIndex + "]/div/table/tbody/tr[" + i + "]/td[10]")).Text.ToString();
                     ListFootBallTeams.Add(new FootBallTeams { Years = Years, Level = Level, TeamName = TeamName, TotalGames = TotalGames, WinGames = WinGames, TieGames = TieGames, LoseGames = LoseGames, WinBall = WinBall, LoseBall = LoseBall, SubtractBall = SubtractBall });
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log.WriteLog("GetData錯誤 : " + ex.Message);
             }
