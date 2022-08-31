@@ -15,7 +15,7 @@ namespace FootBall
         public List<FootBallTeams> ReadFile(string countryEnum)
         {
             List<FootBallTeams> ListFootBallTeams = new List<FootBallTeams>();
-            string TxtPath= Path.Combine(path, countryEnum.ToString() + ".txt");
+            string TxtPath = Path.Combine(path, countryEnum.ToString() + ".txt");
             string line = "";
             string[] Data = default;
             try
@@ -39,7 +39,7 @@ namespace FootBall
             }
             catch (Exception ex)
             {
-                log.WriteLog("ReadFileToList錯誤:"+ex.Message);
+                log.WriteLog("ReadFileToList錯誤:" + ex.Message);
             }
             return ListFootBallTeams;
         }

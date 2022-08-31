@@ -21,10 +21,8 @@ namespace FootBall
         public void UpdateChromDriverFun()
         {
             string ChromeDriverPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
             string ChromDriverVersion = GetChromDriverVersion(ChromeDriverPath);
             string ChromeWebVersion = GetWebChromeVersion();
-
             if (ChromDriverVersion != ChromeWebVersion)
             {
                 var urlToDownload = GetURLToDownload(ChromeWebVersion);
@@ -50,7 +48,7 @@ namespace FootBall
                     Console.WriteLine("ChromeDriver.exe missing !!");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _log.WriteLog(ex.ToString());
             }

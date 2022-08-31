@@ -9,7 +9,7 @@ namespace FootBall
 {
     class log
     {
-      public  void WriteLog(string message)
+        public void WriteLog(string message)
         {
             if (!Directory.Exists(Path.Combine(System.Windows.Forms.Application.StartupPath, "log")))
             {
@@ -20,8 +20,6 @@ namespace FootBall
             {
                 sw.WriteLine(DateTime.Now.ToString("HH:mm:ss") + "   " + message);
             }
-
-
         }
     }
 }

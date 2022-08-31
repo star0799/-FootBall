@@ -15,7 +15,6 @@ namespace FootBall
     class SeleniumChrome
     {
         WebDriverWait wait;
-        IWebElement iwe;
         IWebDriver driver = new ChromeDriver();
         FootBallTeams footBallTeams = new FootBallTeams();
         List<FootBallTeams> ListFootBallTeams = new List<FootBallTeams>();
@@ -23,8 +22,8 @@ namespace FootBall
         log log = new log();
         public void LoadData()
         {
-            int DataYeas = Convert.ToInt16(ConfigurationManager.AppSettings["DataYeas"]) + 1;
-            int StartYear = DateTime.Now.Year - DataYeas;
+            int DataYeasCount = Convert.ToInt16(ConfigurationManager.AppSettings["DataYeasCount"] ?? "3") + 1;
+            int StartYear = DateTime.Now.Year - DataYeasCount;
             //多抓下一年看有沒有值，寫入txt那段會篩掉
             int EndYear = DateTime.Now.Year + 1;
             try
@@ -56,10 +55,7 @@ namespace FootBall
                             writeFile.UpdateData(name, i, ListFootBallTeams);
                         }
                     }
-
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -69,7 +65,6 @@ namespace FootBall
             {
                 driver.Quit();
             }
-
         }
         //重新到google頁面搜尋
         public void ReSearch(string country)
@@ -79,7 +74,8 @@ namespace FootBall
                 IWebElement GetSearchBar;
                 IWebElement SearchSubmit;
                 IWebElement RecordSubmit;
-                driver.Navigate().GoToUrl("http://google.com");
+                string GoogleUrl = ConfigurationManager.AppSettings["GoogleUrl"].ToString() ?? "http://google.com";
+                driver.Navigate().GoToUrl(GoogleUrl);
                 wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
                 GetSearchBar = wait.Until(ExpectedConditions.ElementToBeClickable(By.Name("q")));
                 GetSearchBar.SendKeys(country.ToString());
@@ -97,11 +93,9 @@ namespace FootBall
         //切換不同年份資料
         public void SearchData(int year)
         {
-
             IWebElement DowpdownYears;
             string tmpNextYear = ((year).ToString()).Substring(2, 2);
             string yearString = (year - 1).ToString() + "-" + tmpNextYear;
-
             //按下下拉選單
             DowpdownYears = wait.Until(ExpectedConditions.ElementToBeClickable(By.TagName("g-dropdown-button")));
             DowpdownYears.Click();
@@ -124,8 +118,6 @@ namespace FootBall
                     log.WriteLog("SearchData錯誤 : " + ex.Message);
                 }
             }
-
-
         }
         //取資料並存入list
         public void GetData(int year)
@@ -135,8 +127,8 @@ namespace FootBall
             int Years, Level, TotalGames, WinGames, LoseGames, TieGames, WinBall, LoseBall;
             string TeamName;
             string SubtractBall;
-            string XPath = ConfigurationManager.AppSettings["XPath"];
-            int Element = Convert.ToInt16(ConfigurationManager.AppSettings["Element"]);
+            string XPath = ConfigurationManager.AppSettings["XPath"] ?? "//*[@id='liveresults-sports-immersive__league-fullpage']/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div/div[2]/div";
+            int Element = Convert.ToInt16(ConfigurationManager.AppSettings["Element"] ?? "2");
             try
             {
                 //*[@id="liveresults-sports-immersive__league-fullpage"]/div/div[2]/div[2]/div/div/div/div[3]/div/div/div/div[2]/div/div/div/div/div/div/div[2]/div/div[2]/div/table/tbody/tr[1]
@@ -168,7 +160,5 @@ namespace FootBall
                 log.WriteLog("GetData錯誤 : " + ex.Message);
             }
         }
-
-
     }
 }
