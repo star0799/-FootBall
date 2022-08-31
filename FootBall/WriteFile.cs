@@ -43,7 +43,6 @@ namespace FootBall
         //前N年專用已經有寫入檔案完就不會在使用
         public void WriteData(string countryEnum, int year, List<FootBallTeams> data)
         {
-            data = FilterYears(data);
             using (StreamWriter sw = new StreamWriter(Path.Combine(path, countryEnum + ".txt"), true))
             {
                 foreach (var d in FormatDataFile(data))
@@ -55,9 +54,7 @@ namespace FootBall
         public void UpdateData(string countryEnum, int year, List<FootBallTeams> data)
         {
             //取得目前年份
-            string NowYear = DateTime.Now.Year.ToString();
             string DataPath = Path.Combine(path, countryEnum.ToString() + ".txt");
-            data = FilterYears(data);
             if (!File.Exists(DataPath))
             {
                 StreamWriter sw = new StreamWriter(DataPath, true);
@@ -67,7 +64,7 @@ namespace FootBall
             for (int i = 0; i < lines.Count; i++)
             {
                 //判斷是今年先把檔資料刪除
-                if (lines[i].Contains(NowYear))
+                if (lines[i].Contains(year.ToString()))
                 {
                     lines.RemoveAt(i);
                     i--;
@@ -92,16 +89,21 @@ namespace FootBall
             return result;
         }
         //移除多餘的年份
-        public List<FootBallTeams> FilterYears(List<FootBallTeams> data)
-        {
-            int DataYeasCount = Convert.ToInt16(ConfigurationManager.AppSettings["DataYeasCount"]??"3");
-            int MaxYears = data.Select(x => x.Years).Distinct().Count();
-            if (MaxYears > DataYeasCount)
-            {
-                int deleteYears = data.Select(x => x.Years).Min();
-                data.RemoveAll(x => x.Years == deleteYears);
-            }
-            return data;
-        }
+        //public List<FootBallTeams> FilterYears()
+        //{
+        //    string path = Path.Combine(System.Windows.Forms.Application.StartupPath);
+        //    string TxtPath = Path.Combine(path, countryEnum.ToString() + ".txt");
+        //    int DataYeasCount = Convert.ToInt16(ConfigurationManager.AppSettings["DataYeasCount"]??"3");
+        //    string line = "";
+        //    string[] Data = default;
+        //    //int MaxYears = data.Select(x => x.Years).Distinct().Count();
+        //    //if (MaxYears > DataYeasCount)
+        //    //{
+        //    //    int deleteYears = data.Select(x => x.Years).Min();
+        //    //    data.RemoveAll(x => x.Years == deleteYears);
+        //    //}
+
+        //    return data;
+        //}
     }
 }
