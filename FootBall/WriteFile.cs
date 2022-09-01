@@ -37,7 +37,6 @@ namespace FootBall
             {
                 result = false;
             }
-
             return result;
         }
         //前N年專用已經有寫入檔案完就不會在使用
@@ -88,22 +87,5 @@ namespace FootBall
             }
             return result;
         }
-        //移除多餘的年份
-        //public List<FootBallTeams> FilterYears()
-        //{
-        //    string path = Path.Combine(System.Windows.Forms.Application.StartupPath);
-        //    string TxtPath = Path.Combine(path, countryEnum.ToString() + ".txt");
-        //    int DataYeasCount = Convert.ToInt16(ConfigurationManager.AppSettings["DataYeasCount"]??"3");
-        //    string line = "";
-        //    string[] Data = default;
-        //    //int MaxYears = data.Select(x => x.Years).Distinct().Count();
-        //    //if (MaxYears > DataYeasCount)
-        //    //{
-        //    //    int deleteYears = data.Select(x => x.Years).Min();
-        //    //    data.RemoveAll(x => x.Years == deleteYears);
-        //    //}
-
-        //    return data;
-        //}
     }
 }

@@ -19,7 +19,7 @@ namespace FootBall
         log log = new log();
         public void ExportDataExcel()
         {
-            string xlsPath = Path.Combine(path, ConfigurationManager.AppSettings["ExportExcelName"] ??"足球分析.xls");
+            string xlsPath = Path.Combine(path, ConfigurationManager.AppSettings["ExportExcelName"] ?? "足球分析.xls");
             foreach (string name in Enum.GetNames(typeof(CountryEnum)))
             {
                 if (IsExistTxtFile(name))

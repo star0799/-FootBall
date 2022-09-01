@@ -18,7 +18,7 @@ namespace FootBall
             List<FootBallTeams> ListFootBallTeams = new List<FootBallTeams>();
             string TxtPath = Path.Combine(path, countryEnum.ToString() + ".txt");
             string line = "";
-            int takeCount=Convert.ToInt16(ConfigurationManager.AppSettings["DataYeasCount"].ToString() ?? "3");
+            int takeCount = Convert.ToInt16(ConfigurationManager.AppSettings["DataYeasCount"].ToString() ?? "3");
             string[] Data = default;
             try
             {
@@ -44,7 +44,7 @@ namespace FootBall
                 log.WriteLog("ReadFileToList錯誤:" + ex.Message);
             }
             //取出所有資料從最近的年份
-            List<int> yearsFilter = ListFootBallTeams.OrderByDescending(x=>x.Years).Select(x => x.Years).Distinct().Take(takeCount).ToList();
+            List<int> yearsFilter = ListFootBallTeams.OrderByDescending(x => x.Years).Select(x => x.Years).Distinct().Take(takeCount).ToList();
             ListFootBallTeams = ListFootBallTeams.Where(r => yearsFilter.Contains(r.Years)).ToList();
             return ListFootBallTeams;
         }

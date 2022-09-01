@@ -22,9 +22,9 @@ namespace FootBall
         log log = new log();
         public void LoadData()
         {
-            int DataYeasCount = Convert.ToInt16(ConfigurationManager.AppSettings["DataYeasCount"] ?? "3")-1;
+            int DataYeasCount = Convert.ToInt16(ConfigurationManager.AppSettings["DataYeasCount"] ?? "3") - 1;
             int StartYear = DateTime.Now.Year - DataYeasCount;
-            //多抓下一年看有沒有值，顯示資料那段會篩掉
+            //多抓下一年看有沒有值，讀資料那段會篩掉
             int EndYear = DateTime.Now.Year + 1;
             try
             {
@@ -35,7 +35,7 @@ namespace FootBall
                     for (int i = StartYear; i <= EndYear; i++)
                     {
                         //判斷是不是最新一期和最新二期，最新一期必須更新，最新二期不管是否最新也一併更新
-                        if (i != EndYear && i!= EndYear-1)
+                        if (i != EndYear && i != EndYear - 1)
                         {
                             //舊資料檔案只要存在就不做處理
                             if (!writeFile.IsExistData(name, i))
@@ -59,7 +59,7 @@ namespace FootBall
                             {
                                 ListFootBallTeams.Clear();
                                 GetData(i);
-                                //目前年份寫入txt
+                                //近兩年份重新寫入txt
                                 writeFile.UpdateData(name, i, ListFootBallTeams);
                             }
                             else
@@ -67,7 +67,6 @@ namespace FootBall
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {
