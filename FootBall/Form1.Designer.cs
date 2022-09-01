@@ -67,7 +67,6 @@
             this.lvShow.Size = new System.Drawing.Size(1346, 363);
             this.lvShow.TabIndex = 1;
             this.lvShow.UseCompatibleStateImageBehavior = false;
-            this.lvShow.SelectedIndexChanged += new System.EventHandler(this.lvShow_SelectedIndexChanged);
             // 
             // lvStatistics
             // 
@@ -126,7 +125,6 @@
             this.lbSelect.Size = new System.Drawing.Size(108, 16);
             this.lbSelect.TabIndex = 6;
             this.lbSelect.Text = "請先選擇國家:";
-            this.lbSelect.Click += new System.EventHandler(this.lbSelect_Click);
             // 
             // cbTeam2
             // 
