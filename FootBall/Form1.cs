@@ -171,7 +171,6 @@ namespace FootBall
             log.WriteLog("匯入資料完成...");
             if (ListFootBallTeams.Count != 0)
             {
-
                 var DistinctYears = (from m in ListFootBallTeams
                                      orderby m.Years
                                      select new

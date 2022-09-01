@@ -22,9 +22,9 @@ namespace FootBall
         log log = new log();
         public void LoadData()
         {
-            int DataYeasCount = Convert.ToInt16(ConfigurationManager.AppSettings["DataYeasCount"] ?? "3");
+            int DataYeasCount = Convert.ToInt16(ConfigurationManager.AppSettings["DataYeasCount"] ?? "3")-1;
             int StartYear = DateTime.Now.Year - DataYeasCount;
-            //多抓下一年看有沒有值，寫入txt那段會篩掉
+            //多抓下一年看有沒有值，顯示資料那段會篩掉
             int EndYear = DateTime.Now.Year + 1;
             try
             {
@@ -34,27 +34,36 @@ namespace FootBall
                     ReSearch(name);
                     for (int i = StartYear; i <= EndYear; i++)
                     {
-                        if (i != EndYear)
+                        //判斷是不是最新一期和最新二期，最新一期必須更新，最新二期不管是否最新也一併更新
+                        if (i != EndYear && i!= EndYear-1)
                         {
+                            //舊資料檔案只要存在就不做處理
                             if (!writeFile.IsExistData(name, i))
                             {
-                                    SearchData(i);
+                                //進入網站檢查elemenet在不在，不在跳過
+                                if (IsExistYears(i))
+                                {
                                     ListFootBallTeams.Clear();
                                     GetData(i);
                                     //寫入txt
                                     writeFile.WriteData(name, i, ListFootBallTeams);
+                                }
+                                else
+                                    continue;
                             }
                         }
                         else
                         {
-                            //ReSearch(name);
-                            if (SearchData(i) != null)
+                            //進入網站檢查elemenet在不在，不在跳過
+                            if (IsExistYears(i))
                             {
                                 ListFootBallTeams.Clear();
                                 GetData(i);
                                 //目前年份寫入txt
                                 writeFile.UpdateData(name, i, ListFootBallTeams);
                             }
+                            else
+                                continue;
                         }
                     }
                 }
@@ -94,7 +103,7 @@ namespace FootBall
             }
         }
         //切換不同年份資料
-        public int? SearchData(int year)
+        public bool IsExistYears(int year)
         {
             IWebElement DowpdownYears;
             string tmpNextYear = ((year).ToString()).Substring(2, 2);
@@ -113,16 +122,16 @@ namespace FootBall
                     if (DowpdownItem == yearString)
                     {
                         i.Click();
-                        return year;
+                        return true;
                     }
                 }
                 catch (Exception ex)
                 {
                     log.WriteLog("SearchData錯誤 : " + ex.Message);
-                    return null;
+                    return false;
                 }
             }
-            return null;
+            return false;
         }
         //取資料並存入list
         public void GetData(int year)
