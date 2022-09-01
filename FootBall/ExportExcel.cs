@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using System.IO;
+using System.Configuration;
 
 namespace FootBall
 {
-    
+
     class ExportExcel
     {
         string path = Path.Combine(System.Windows.Forms.Application.StartupPath);
@@ -18,7 +19,7 @@ namespace FootBall
         log log = new log();
         public void ExportDataExcel()
         {
-            string xlsPath = Path.Combine(path,"足球分析.xls");
+            string xlsPath = Path.Combine(path, ConfigurationManager.AppSettings["ExportExcelName"] ?? "足球分析.xls");
             foreach (string name in Enum.GetNames(typeof(CountryEnum)))
             {
                 if (IsExistTxtFile(name))
@@ -39,7 +40,7 @@ namespace FootBall
                     headerfont.FontName = "微軟正黑體";
                     headerfont.FontHeightInPoints = 12;
                     headerfont.Boldweight = (short)FontBoldWeight.Bold;//粗體
-                    headerStyle.SetFont(headerfont); 
+                    headerStyle.SetFont(headerfont);
                     row0.CreateCell(0).SetCellValue("年份");
                     row0.CreateCell(1).SetCellValue("排名");
                     row0.CreateCell(2).SetCellValue("隊名");
@@ -47,7 +48,7 @@ namespace FootBall
                     row0.CreateCell(4).SetCellValue("贏局");
                     row0.CreateCell(5).SetCellValue("輸局");
                     row0.CreateCell(6).SetCellValue("和局");
-                    row0.CreateCell(7).SetCellValue("勝-(和+負)"); 
+                    row0.CreateCell(7).SetCellValue("勝-(和+負)");
                     sheet.SetColumnWidth(7, 3000); //設定寬度
                     row0.CreateCell(8).SetCellValue("進球");
                     row0.CreateCell(9).SetCellValue("失球");
@@ -63,7 +64,7 @@ namespace FootBall
                     for (int j = 0; j < row0.Cells.Count; j++)
                         sheet.GetRow(0).GetCell(j).CellStyle = headerStyle;
                     for (int r = 0; r < ListFootBallTeams.Count; r++)
-                    {                       
+                    {
                         double AvgWinBall = default;
                         double AvgLoseBall = default;
                         int RealWinGameCount = default;
@@ -74,12 +75,12 @@ namespace FootBall
                         RealWinGameCount = ListFootBallTeams[r].WinGames - (ListFootBallTeams[r].TieGames + ListFootBallTeams[r].LoseGames);
                         ClearAvg = Math.Round(Convert.ToDouble(ListFootBallTeams[r].SubtractBall) / Convert.ToDouble(ListFootBallTeams[r].TotalGames), 2);
                         WinRate = Math.Round(Convert.ToDouble(ListFootBallTeams[r].WinGames) / Convert.ToDouble(ListFootBallTeams[r].TotalGames), 2) * 100;
-                        IRow row = sheet.CreateRow(r+1);
+                        IRow row = sheet.CreateRow(r + 1);
                         row.CreateCell(0).SetCellValue(ListFootBallTeams[r].Years);
                         row.CreateCell(1).SetCellValue(ListFootBallTeams[r].Level);
                         row.CreateCell(2).SetCellValue(ListFootBallTeams[r].TeamName);
                         row.CreateCell(3).SetCellValue(ListFootBallTeams[r].TotalGames);
-                        row.CreateCell(4).SetCellValue(ListFootBallTeams[r].WinGames);           
+                        row.CreateCell(4).SetCellValue(ListFootBallTeams[r].WinGames);
                         row.CreateCell(5).SetCellValue(ListFootBallTeams[r].LoseGames);
                         row.CreateCell(6).SetCellValue(ListFootBallTeams[r].TieGames);
                         row.CreateCell(7).SetCellValue(RealWinGameCount);
@@ -89,12 +90,12 @@ namespace FootBall
                         row.CreateCell(11).SetCellValue(AvgWinBall);
                         row.CreateCell(12).SetCellValue(AvgLoseBall);
                         row.CreateCell(13).SetCellValue(ClearAvg);
-                        row.CreateCell(14).SetCellValue(WinRate+"%");
-                    }             
+                        row.CreateCell(14).SetCellValue(WinRate + "%");
+                    }
                 }
                 else
                 {
-                    log.WriteLog("IsExistTxtFile : "+ name+".txt不存在");
+                    log.WriteLog("IsExistTxtFile : " + name + ".txt不存在");
                 }
             }
             //整批寫入
@@ -105,7 +106,7 @@ namespace FootBall
         }
         //判斷檔案存在
         public bool IsExistTxtFile(string countryEnum)
-        {            
+        {
             string DataPath = Path.Combine(path, countryEnum.ToString() + ".txt");
             if (File.Exists(DataPath))
             {
@@ -115,6 +116,6 @@ namespace FootBall
             {
                 return false;
             }
-            }
-        }     
+        }
+    }
 }

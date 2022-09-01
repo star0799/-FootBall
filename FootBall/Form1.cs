@@ -11,20 +11,16 @@ using System.Threading;
 
 namespace FootBall
 {
-   
+
     public partial class Form1 : Form
     {
         log log = new log();
-        public const int LevelCount= 20;
         List<FootBallTeams> ListFootBallTeams = new List<FootBallTeams>();
         ReadTxtFile readTxtFile = new ReadTxtFile();
-        int endYear = DateTime.Now.Year;
         public Form1()
         {
             InitializeComponent();
         }
-      
-
         private void button1_Click(object sender, EventArgs e)
         {
             double AvgWinBall = default;
@@ -37,35 +33,32 @@ namespace FootBall
             string cbTeamValue = null;
             string cbTeam2Value = null;
             ReloadListView();
-            if (cbYears.SelectedIndex!=0)
-                cbYearValue =Convert.ToInt32(cbYears.SelectedItem);
+            if (cbYears.SelectedIndex != 0)
+                cbYearValue = Convert.ToInt32(cbYears.SelectedItem);
             if (cbTeam.SelectedIndex != 0)
                 cbTeamValue = cbTeam.SelectedItem.ToString();
             if (cbTeam.SelectedIndex != 0)
                 cbTeam2Value = cbTeam2.SelectedItem.ToString();
-            
+
             if (ListFootBallTeams.Count == 0)
             {
                 MessageBox.Show("找不到資料請重新操作");
                 return;
             }
-
             var query = (from lfb in ListFootBallTeams
-                         where (cbYearValue==null || lfb.Years== cbYearValue) && ((cbTeamValue == null || lfb.TeamName == cbTeamValue)||(cbTeam2Value == null || lfb.TeamName == cbTeam2Value))
+                         where (cbYearValue == null || lfb.Years == cbYearValue) && ((cbTeamValue == null || lfb.TeamName == cbTeamValue) || (cbTeam2Value == null || lfb.TeamName == cbTeam2Value))
                          orderby lfb.TeamName, lfb.Years
                          select lfb).ToList();
-           
             foreach (var q in query)
             {
-                AvgWinBall = Math.Round(Convert.ToDouble(q.WinBall) /Convert.ToDouble(q.TotalGames),2);
+                AvgWinBall = Math.Round(Convert.ToDouble(q.WinBall) / Convert.ToDouble(q.TotalGames), 2);
                 AvgLoseBall = Math.Round(Convert.ToDouble(q.LoseBall) / Convert.ToDouble(q.TotalGames), 2);
                 RealWinGameCount = q.WinGames - (q.TieGames + q.LoseGames);
-                ClearAvg = Math.Round(Convert.ToDouble(q.SubtractBall) / Convert.ToDouble(q.TotalGames),2);
-                WinRate = Math.Round(Convert.ToDouble(q.WinGames) /Convert.ToDouble(q.TotalGames),2)*100;
+                ClearAvg = Math.Round(Convert.ToDouble(q.SubtractBall) / Convert.ToDouble(q.TotalGames), 2);
+                WinRate = Math.Round(Convert.ToDouble(q.WinGames) / Convert.ToDouble(q.TotalGames), 2) * 100;
                 lvShow.Items.Add(new ListViewItem(new string[] { q.Years.ToString(), q.Level.ToString(), q.TeamName,q.TotalGames.ToString(),q.WinGames.ToString(),q.LoseGames.ToString(),q.TieGames.ToString(), RealWinGameCount.ToString(), q.WinBall.ToString(),q.LoseBall.ToString(),q.SubtractBall.ToString(),AvgWinBall.ToString(),AvgLoseBall.ToString(), ClearAvg.ToString(), WinRate.ToString()+"%"
                     , q.Years.ToString() }));
             }
-
             //抓出所有不重複隊伍
             var DistinctTeams = (from m in query
                                  orderby m.TeamName, m.Years
@@ -74,11 +67,9 @@ namespace FootBall
                                      m.TeamName
                                  }
                ).Distinct().ToList();
-
             string TeamName = default;
             double AvgLv = default;
             int TeamTotalGames = default;
-            
             int TeamWinGames = default;
             int TeamTieGames = default;
             int TeamLoseGames = default;
@@ -90,49 +81,44 @@ namespace FootBall
             int RealTeamWinGameCount = default;
             double TeamClearAvg = default;
             double TeamWinRate = default;
-
             //把不重複隊伍進行groupby計算
             foreach (var d in DistinctTeams)
             {
                 TeamName = d.TeamName;
                 AvgLv = ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Average(y => y.Level);
-                AvgLv = Math.Round(AvgLv,2);
-                TeamTotalGames= ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y => y.TotalGames);
+                AvgLv = Math.Round(AvgLv, 2);
+                TeamTotalGames = ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y => y.TotalGames);
                 TeamWinGames = ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y => y.WinGames);
                 TeamTieGames = ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y => y.TieGames);
                 TeamLoseGames = ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y => y.LoseGames);
                 TeamWinBall = ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y => y.WinBall);
                 TeamLoseBall = ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y => y.LoseBall);
-                TeamClerWin= ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y =>Convert.ToInt32(y.SubtractBall));
+                TeamClerWin = ListFootBallTeams.Where(x => x.TeamName == d.TeamName).Sum(y => Convert.ToInt32(y.SubtractBall));
                 AvgTeamWinBall = Math.Round(Convert.ToDouble(TeamWinBall) / Convert.ToDouble(TeamTotalGames), 2);
                 AvgTeamLoseBall = Math.Round(Convert.ToDouble(TeamLoseBall) / Convert.ToDouble(TeamTotalGames), 2);
-                RealTeamWinGameCount = TeamWinGames - (TeamTieGames+ TeamLoseGames);
-                TeamClearAvg =Math.Round(Convert.ToDouble(TeamClerWin) / Convert.ToDouble(TeamTotalGames),2);
-                TeamWinRate= Math.Round(Convert.ToDouble(TeamWinGames) / Convert.ToDouble(TeamTotalGames), 2)*100;
+                RealTeamWinGameCount = TeamWinGames - (TeamTieGames + TeamLoseGames);
+                TeamClearAvg = Math.Round(Convert.ToDouble(TeamClerWin) / Convert.ToDouble(TeamTotalGames), 2);
+                TeamWinRate = Math.Round(Convert.ToDouble(TeamWinGames) / Convert.ToDouble(TeamTotalGames), 2) * 100;
                 lvStatistics.Items.Add(new ListViewItem(new string[] { TeamName, AvgLv.ToString()
                     , TeamTotalGames.ToString(),TeamWinGames.ToString(),TeamLoseGames.ToString(),TeamTieGames.ToString(),RealTeamWinGameCount.ToString(),
                 TeamWinBall.ToString(),TeamLoseBall.ToString(),TeamClerWin.ToString(),AvgTeamWinBall.ToString(),AvgTeamLoseBall.ToString(),TeamClearAvg.ToString(),TeamWinRate.ToString()+"%"}));
             }
 
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             ReloadListView();
-            
+
             foreach (var item in Enum.GetValues(typeof(CountryEnum)))
             {
                 cbCountry.Items.Add(item);
             }
 
         }
-
         private void ReloadListView()
         {
-
             lvShow.Clear();
             lvStatistics.Clear();
-
             lvShow.View = View.Details;
             lvShow.GridLines = true;
             lvShow.FullRowSelect = true;
@@ -171,16 +157,13 @@ namespace FootBall
             lvStatistics.Columns.Add("平均淨勝", 100);
             lvStatistics.Columns.Add("勝率", 50);
         }
-
         private void cbCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             cbYears.Items.Clear();
             cbTeam.Items.Clear();
             cbTeam2.Items.Clear();
             ListFootBallTeams.Clear();
             ReloadListView();
-
             log.WriteLog("匯入資料開始...");
             string Country = ((CountryEnum)cbCountry.SelectedIndex).ToString();
             //txt匯入資料
@@ -188,7 +171,6 @@ namespace FootBall
             log.WriteLog("匯入資料完成...");
             if (ListFootBallTeams.Count != 0)
             {
-
                 var DistinctYears = (from m in ListFootBallTeams
                                      orderby m.Years
                                      select new
@@ -204,7 +186,6 @@ namespace FootBall
                                          m.TeamName
                                      }
                   ).Distinct().ToList();
-
                 cbYears.Items.Add("全部");
                 cbTeam.Items.Add("全部");
                 cbTeam2.Items.Add("無");
@@ -226,17 +207,6 @@ namespace FootBall
                 MessageBox.Show("匯入失敗，請按更新後在重新選擇國家");
             }
         }
-
-        private void lbSelect_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lvShow_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             UpdateChromDriver updateChromDriver = new UpdateChromDriver();
@@ -249,13 +219,12 @@ namespace FootBall
                 log.WriteLog("爬蟲完成!");
                 MessageBox.Show("更新完成");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                log.WriteLog("爬蟲失敗，原因 : "+ex.Message);
+                log.WriteLog("爬蟲失敗，原因 : " + ex.Message);
                 MessageBox.Show("更新失敗，原因 : " + ex.Message);
             }
         }
-
         private void btnExcel_Click(object sender, EventArgs e)
         {
             ExportExcel exportExcel = new ExportExcel();
@@ -264,11 +233,11 @@ namespace FootBall
             {
                 exportExcel.ExportDataExcel();
                 log.WriteLog("匯出Excel成功");
-                MessageBox.Show("匯出Excel成功，位置 : "+ System.Windows.Forms.Application.StartupPath);
+                MessageBox.Show("匯出Excel成功，位置 : " + System.Windows.Forms.Application.StartupPath);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                log.WriteLog("匯出Excel失敗，原因 : "+ex.Message);
+                log.WriteLog("匯出Excel失敗，原因 : " + ex.Message);
             }
         }
     }
